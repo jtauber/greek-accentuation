@@ -71,6 +71,20 @@ def syllabify(word):
     return result
 
 
+def ultima(w):
+    return "".join(syllabify(w)[-1])
+
+
+def penult(w):
+    s = syllabify(w)
+    return "".join(s[-2]) if len(s) >= 2 else None
+
+
+def antepenult(w):
+    s = syllabify(w)
+    return "".join(s[-3]) if len(s) >= 3 else None
+
+
 if __name__ == "__main__":
     assert is_vowel("ὅ")
     assert not is_vowel("γ")
@@ -82,3 +96,8 @@ if __name__ == "__main__":
     assert display_word(syllabify("γυναικός")) == "γυ.ναι.κός"
     assert display_word(syllabify("οἰκία")) == "οἰ.κί.α"
     assert display_word(syllabify("καταλλάσσω")) == "κα.ταλ.λάσ.σω"
+
+    assert ultima("γυναικός") == "κός"
+    assert penult("οἰκία") == "κί"
+    assert antepenult("καταλλάσσω") == "ταλ"
+    assert not antepenult("λόγος")
