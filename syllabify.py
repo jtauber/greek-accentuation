@@ -85,6 +85,47 @@ def antepenult(w):
     return "".join(s[-3]) if len(s) >= 3 else None
 
 
+def onset(s):
+    for i, ch in enumerate(s):
+        if is_vowel(ch):
+            return s[:i] if i > 0 else None
+
+
+def nucleus(s):
+    for i, ch in enumerate(s):
+        if is_vowel(ch):
+            break
+    for j, ch in enumerate(s[i:]):
+        if not is_vowel(ch):
+            return s[i:i+j]
+    return s[i:]
+
+
+def coda(s):
+    for i, ch in enumerate(s):
+        if is_vowel(ch):
+            break
+    for j, ch in enumerate(s[i:]):
+        if not is_vowel(ch):
+            return s[i+j:]
+
+
+def rime(s):
+    for i, ch in enumerate(s):
+        if is_vowel(ch):
+            return s[i:]
+
+
+def body(s):
+    for i, ch in enumerate(s):
+        if is_vowel(ch):
+            break
+    for j, ch in enumerate(s[i:]):
+        if not is_vowel(ch):
+            return s[:i+j]
+    return s
+
+
 if __name__ == "__main__":
     assert is_vowel("ὅ")
     assert not is_vowel("γ")
@@ -101,3 +142,17 @@ if __name__ == "__main__":
     assert penult("οἰκία") == "κί"
     assert antepenult("καταλλάσσω") == "ταλ"
     assert not antepenult("λόγος")
+
+    assert onset("ναι") == "ν"
+    assert nucleus("ναι") == "αι"
+    assert not coda("ναι")
+    assert rime("ναι") == "αι"
+    assert body("ναι") == "ναι"
+
+    assert onset("κός") == "κ"
+    assert nucleus("κός") == "ό"
+    assert coda("κός") == "ς"
+    assert rime("κός") == "ός"
+    assert body("κός") == "κό"
+
+    assert not onset("οἰ")
