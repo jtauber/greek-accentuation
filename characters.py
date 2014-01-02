@@ -35,6 +35,16 @@ def diaeresis(ch):
             return accent_character
 
 
+YPOGEGRAMMENI = IOTA_SUBSCRIPT = "\u0345"
+
+def iota_subscript(ch):
+    decomposed_form = unicodedata.normalize("NFD", ch)
+    for accent_character in [IOTA_SUBSCRIPT]:
+        if accent_character in decomposed_form:
+            return accent_character
+ypogegrammeni = iota_subscript
+
+
 if __name__ == "__main__":
     assert base("ὅ") == "ο"
     assert breathing("ὅ") == ROUGH
@@ -44,3 +54,5 @@ if __name__ == "__main__":
     assert not breathing("ϋ")
     assert not accent("ϋ")
     assert diaeresis("ϋ") == DIAERESIS
+    assert iota_subscript("ᾳ") == IOTA_SUBSCRIPT
+    assert not iota_subscript("α")
