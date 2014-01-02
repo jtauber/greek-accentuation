@@ -1,5 +1,5 @@
-from characters import base, diaeresis, iota_subscript
-
+from characters import accent, base, diaeresis, iota_subscript
+from characters import ACUTE, CIRCUMFLEX
 
 def is_vowel(ch):
     return base(ch).lower() in "αεηιουω"
@@ -159,6 +159,12 @@ def syllable_length(s, final=None):
                 return UNKNOWN
 
 
+def syllable_accent(s):
+    for ch in nucleus(s):
+        a = accent(ch)
+        if a:
+            return a
+
 if __name__ == "__main__":
     assert is_vowel("ὅ")
     assert not is_vowel("γ")
@@ -198,3 +204,6 @@ if __name__ == "__main__":
     assert syllable_length("σω") == LONG
     assert syllable_length("ᾳ") == LONG
 
+    assert syllable_accent("κός") == ACUTE
+    assert not syllable_accent("ναι")
+    assert syllable_accent("φῶς") == CIRCUMFLEX
