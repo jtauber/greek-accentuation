@@ -12,8 +12,9 @@ def possible_accentuations(w):
     ultima_length = syllable_length(s[-1], True)
     penult_length = syllable_length(s[-2], False)
     if ultima_length == SHORT:
-        # proparoxytone
-        yield "".join(s[:-3]) + syllable_add_accent(s[-3], ACUTE) + "".join(s[-2:])
+        if len(s) >= 3:
+            # proparoxytone
+            yield "".join(s[:-3]) + syllable_add_accent(s[-3], ACUTE) + "".join(s[-2:])
         if penult_length == SHORT:
             # paroxytone
             yield "".join(s[:-2]) + syllable_add_accent(s[-2], ACUTE) + s[-1]
@@ -35,8 +36,9 @@ def possible_accentuations(w):
         # perispomenon
         yield "".join(s[:-1]) + syllable_add_accent(s[-1], CIRCUMFLEX)
     elif ultima_length == UNKNOWN:
-        # proparoxytone (conditional on short ultima)
-        yield "".join(s[:-3]) + syllable_add_accent(s[-3], ACUTE) + "".join(s[-2:])
+        if len(s) >= 3:
+            # proparoxytone (conditional on short ultima)
+            yield "".join(s[:-3]) + syllable_add_accent(s[-3], ACUTE) + "".join(s[-2:])
         if penult_length == SHORT:
             # paroxytone
             yield "".join(s[:-2]) + syllable_add_accent(s[-2], ACUTE) + s[-1]
