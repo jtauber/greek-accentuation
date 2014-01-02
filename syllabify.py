@@ -110,6 +110,22 @@ def coda(s):
             return s[i+j:]
 
 
+def onset_nucleus_coda(s):
+    for i, ch in enumerate(s):
+        if is_vowel(ch):
+            onset = s[:i] if i > 0 else ""
+            break
+    nucleus = ""
+    for j, ch in enumerate(s[i:]):
+        if not is_vowel(ch):
+            nucleus = s[i:i+j]
+            coda = s[i+j:]
+    if not nucleus:
+        nucleus = s[i:]
+        coda = ""
+    return onset, nucleus, coda
+
+
 def rime(s):
     for i, ch in enumerate(s):
         if is_vowel(ch):
@@ -255,13 +271,19 @@ if __name__ == "__main__":
     assert rime("ναι") == "αι"
     assert body("ναι") == "ναι"
 
+    assert onset_nucleus_coda("ναι") == ("ν", "αι", "")
+
     assert onset("κός") == "κ"
     assert nucleus("κός") == "ό"
     assert coda("κός") == "ς"
     assert rime("κός") == "ός"
     assert body("κός") == "κό"
 
+    assert onset_nucleus_coda("κός") == ("κ", "ό", "ς")
+
     assert not onset("οἰ")
+
+    assert onset_nucleus_coda("οἰ") == ("", "οἰ", "")
 
     assert syllable_length("κός") == SHORT
     assert syllable_length("οἰ", final=False) == LONG
