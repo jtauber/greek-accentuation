@@ -165,6 +165,37 @@ def syllable_accent(s):
         if a:
             return a
 
+
+def oxytone(w):
+    # acute on ultima
+    return syllable_accent(ultima(w)) == ACUTE
+
+
+def paroxytone(w):
+    # acute on penult
+    return syllable_accent(penult(w)) == ACUTE
+
+
+def proparoxytone(w):
+    # acute on antepenult
+    return syllable_accent(antepenult(w)) == ACUTE
+
+
+def perispomenon(w):
+    # circumflex on ultima
+    return syllable_accent(ultima(w)) == CIRCUMFLEX
+
+
+def properispomenon(w):
+    # circumflex on penult
+    return syllable_accent(penult(w)) == CIRCUMFLEX
+
+
+def barytone(w):
+    # ultima unaccented
+    return not syllable_accent(ultima(w))
+
+
 if __name__ == "__main__":
     assert is_vowel("ὅ")
     assert not is_vowel("γ")
@@ -207,3 +238,10 @@ if __name__ == "__main__":
     assert syllable_accent("κός") == ACUTE
     assert not syllable_accent("ναι")
     assert syllable_accent("φῶς") == CIRCUMFLEX
+
+    assert oxytone("θεός")
+    assert paroxytone("λόγος")
+    assert proparoxytone("κύριος")
+    assert perispomenon("θεοῦ")
+    assert properispomenon("δοῦλος")
+    assert barytone("λόγος")
