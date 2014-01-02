@@ -1,5 +1,5 @@
 from characters import accent, base, diaeresis, iota_subscript
-from characters import ACUTE, CIRCUMFLEX
+from characters import ACUTE, CIRCUMFLEX, GRAVE
 
 def is_vowel(ch):
     return base(ch).lower() in "αεηιουω"
@@ -196,6 +196,41 @@ def barytone(w):
     return not syllable_accent(ultima(w))
 
 
+def syllable_morae(s, final=None):
+    a = syllable_accent(s)
+    l = syllable_length(s, final)
+    if l == LONG:
+        if a == ACUTE:
+            return "mM"
+        elif a == CIRCUMFLEX:
+            return "Mm"
+        elif not a:
+            return "mm"
+    elif l == SHORT:
+        if a == ACUTE:
+            return "M"
+        elif a == GRAVE:
+            return "m"
+        elif not a:
+            return "m"
+    elif l == UNKNOWN:
+        if a == CIRCUMFLEX:
+            return "Mm"
+        elif a == ACUTE:
+            return "U"
+        else:
+            return "u"
+
+
+def morae(w):
+    m = []
+    syllables = ["".join(l) for l in syllabify(w)]
+    for s in syllables[:-1]:
+        m.append(syllable_morae(s, False))
+    m.append(syllable_morae(syllables[-1], True))
+    return m
+
+
 if __name__ == "__main__":
     assert is_vowel("ὅ")
     assert not is_vowel("γ")
@@ -245,3 +280,10 @@ if __name__ == "__main__":
     assert perispomenon("θεοῦ")
     assert properispomenon("δοῦλος")
     assert barytone("λόγος")
+
+    assert ".".join(morae("γυναικός")) == "u.mm.M"
+    assert ".".join(morae("θεός")) == "m.M"
+    assert ".".join(morae("λόγος")) == "M.m"
+    assert ".".join(morae("κύριος")) == "U.u.m"
+    assert ".".join(morae("θεοῦ")) == "m.Mm"
+    assert ".".join(morae("δοῦλος")) == "Mm.m"
