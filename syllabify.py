@@ -196,9 +196,9 @@ def barytone(w):
     return not syllable_accent(ultima(w))
 
 
-def syllable_morae(s, final=None):
+def syllable_morae(s, number):
     a = syllable_accent(s)
-    l = syllable_length(s, final)
+    l = syllable_length(s, number == 0)
     if l == LONG:
         if a == ACUTE:
             return "mM"
@@ -223,12 +223,13 @@ def syllable_morae(s, final=None):
 
 
 def morae(w):
-    m = []
-    syllables = ["".join(l) for l in syllabify(w)]
-    for s in syllables[:-1]:
-        m.append(syllable_morae(s, False))
-    m.append(syllable_morae(syllables[-1], True))
-    return m
+    return [
+        syllable_morae(s, number)
+        for number, s in enumerate([
+            "".join(l)
+            for l in syllabify(w)
+        ][:-4:-1])
+    ][::-1]
 
 
 if __name__ == "__main__":
