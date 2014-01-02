@@ -1,4 +1,4 @@
-from characters import base, diaeresis
+from characters import base, diaeresis, iota_subscript
 
 
 def is_vowel(ch):
@@ -126,6 +126,39 @@ def body(s):
     return s
 
 
+LONG = "long"
+SHORT = "short"
+UNKNOWN = "unknown"
+
+def syllable_length(s, final=None):
+    n = nucleus(s)
+    if len(n) > 1:
+        b = base(n[0]) + base(n[1])
+        if final is True:
+            if b in ["αι", "οι"]:
+                return SHORT
+            else:
+                return LONG
+        elif final is False:
+            return LONG
+        else:
+            if b in ["αι", "οι"]:
+                return UNKNOWN
+            else:
+                return LONG
+    else:
+        if iota_subscript(n):
+            return LONG
+        else:
+            b = base(n)
+            if b in "εο":
+                return SHORT
+            elif b in "ηω":
+                return LONG
+            else: # αιυ
+                return UNKNOWN
+
+
 if __name__ == "__main__":
     assert is_vowel("ὅ")
     assert not is_vowel("γ")
@@ -156,3 +189,12 @@ if __name__ == "__main__":
     assert body("κός") == "κό"
 
     assert not onset("οἰ")
+
+    assert syllable_length("κός") == SHORT
+    assert syllable_length("οἰ", final=False) == LONG
+    assert syllable_length("ναι") == UNKNOWN
+    assert syllable_length("ναι", final=True) == SHORT
+    assert syllable_length("ναι", final=False) == LONG
+    assert syllable_length("σω") == LONG
+    assert syllable_length("ᾳ") == LONG
+
