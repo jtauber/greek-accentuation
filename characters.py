@@ -45,6 +45,10 @@ def iota_subscript(ch):
 ypogegrammeni = iota_subscript
 
 
+def add_diacritic(base, diacritic):
+    return unicodedata.normalize("NFC", base + diacritic)
+
+
 if __name__ == "__main__":
     assert base("ὅ") == "ο"
     assert breathing("ὅ") == ROUGH
@@ -56,3 +60,7 @@ if __name__ == "__main__":
     assert diaeresis("ϋ") == DIAERESIS
     assert iota_subscript("ᾳ") == IOTA_SUBSCRIPT
     assert not iota_subscript("α")
+
+    assert add_diacritic("υ", DIAERESIS) == "ϋ"
+    assert add_diacritic("α", YPOGEGRAMMENI) == "ᾳ"
+    assert add_diacritic(add_diacritic("ο", ROUGH), ACUTE) == "ὅ"
