@@ -59,6 +59,3 @@ if __name__ == "__main__":
     assert syllable_add_accent("ος", ACUTE) == "ός"
     assert syllable_add_accent("ου", CIRCUMFLEX) == "οῦ"
     assert syllable_add_accent("φως", CIRCUMFLEX) == "φῶς"
-
-    for w in possible_accentuations("γυναικος"):
-        print(w)
