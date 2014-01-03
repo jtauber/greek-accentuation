@@ -7,54 +7,65 @@ def syllable_add_accent(s, a):
     return o + add_diacritic(n, a) + c
 
 
+def oxytone(s):
+    return "".join(s[:-1]) + syllable_add_accent(s[-1], ACUTE)
+
+
+def paroxytone(s):
+    return "".join(s[:-2]) + syllable_add_accent(s[-2], ACUTE) + s[-1]
+
+
+def proparoxytone(s):
+    return "".join(s[:-3]) + syllable_add_accent(s[-3], ACUTE) + "".join(s[-2:])
+
+
+def perispomenon(s):
+    return "".join(s[:-1]) + syllable_add_accent(s[-1], CIRCUMFLEX)
+
+
+def properispomenon(s):
+    return "".join(s[:-2]) + syllable_add_accent(s[-2], CIRCUMFLEX) + s[-1]
+
+
 def possible_accentuations(w):
     s = ["".join(x) for x in syllabify(w)]
     ultima_length = syllable_length(s[-1], True)
     penult_length = syllable_length(s[-2], False) if len(s) >= 2 else None
     if ultima_length == SHORT:
         if len(s) >= 3:
-            # proparoxytone
-            yield "".join(s[:-3]) + syllable_add_accent(s[-3], ACUTE) + "".join(s[-2:])
+            yield proparoxytone(s)
         if penult_length == SHORT:
-            # paroxytone
-            yield "".join(s[:-2]) + syllable_add_accent(s[-2], ACUTE) + s[-1]
+            yield paroxytone(s)
         elif penult_length == LONG:
-            # properispomenon
-            yield "".join(s[:-2]) + syllable_add_accent(s[-2], CIRCUMFLEX) + s[-1]
+            yield properispomenon(s)
         elif penult_length == UNKNOWN:
-            # paroxytone (conditional on short penult)
-            yield "".join(s[:-2]) + syllable_add_accent(s[-2], ACUTE) + s[-1]
-            # properispomenon (conditional on long penult)
-            yield "".join(s[:-2]) + syllable_add_accent(s[-2], CIRCUMFLEX) + s[-1]
-        # oxytone
-        yield "".join(s[:-1]) + syllable_add_accent(s[-1], ACUTE)
+            # conditional on short penult
+            yield paroxytone(s)
+            # conditional on long penult
+            yield properispomenon(s)
+        yield oxytone(s)
     elif ultima_length == LONG:
         if len(s) >= 2:
-            # paroxytone
-            yield "".join(s[:-2]) + syllable_add_accent(s[-2], ACUTE) + s[-1]
-        # oxytone
-        yield "".join(s[:-1]) + syllable_add_accent(s[-1], ACUTE)
-        # perispomenon
-        yield "".join(s[:-1]) + syllable_add_accent(s[-1], CIRCUMFLEX)
+            yield paroxytone(s)
+        yield oxytone(s)
+        yield perispomenon(s)
     elif ultima_length == UNKNOWN:
         if len(s) >= 3:
-            # proparoxytone (conditional on short ultima)
-            yield "".join(s[:-3]) + syllable_add_accent(s[-3], ACUTE) + "".join(s[-2:])
+            # conditional on short ultima
+            yield proparoxytone(s)
         if penult_length == SHORT:
-            # paroxytone
-            yield "".join(s[:-2]) + syllable_add_accent(s[-2], ACUTE) + s[-1]
+            yield paroxytone(s)
         elif penult_length == LONG:
-            # properispomenon (conditional on short ultima)
-            yield "".join(s[:-2]) + syllable_add_accent(s[-2], CIRCUMFLEX) + s[-1]
+            # conditional on short ultima
+            yield properispomenon(s)
         elif penult_length == UNKNOWN:
-            # paroxytone (conditional on short penult)
-            yield "".join(s[:-2]) + syllable_add_accent(s[-2], ACUTE) + s[-1]
-            # properispomenon (conditional on long penult)
-            yield "".join(s[:-2]) + syllable_add_accent(s[-2], CIRCUMFLEX) + s[-1]
-        # perispomenon (condition on long ultima)
-        yield "".join(s[:-1]) + syllable_add_accent(s[-1], CIRCUMFLEX)
-        # oxytone
-        yield "".join(s[:-1]) + syllable_add_accent(s[-1], ACUTE)
+            # conditional on short penult
+            yield paroxytone(s)
+            # conditional on long penult
+            yield properispomenon(s)
+        # conditional on long ultima
+        yield perispomenon(s)
+        yield oxytone(s)
 
 
 if __name__ == "__main__":
