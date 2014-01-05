@@ -32,7 +32,7 @@ def is_valid_consonant_cluster(b, c):
 
 
 def display_word(w):
-    return ".".join("".join(s) for s in w)
+    return ".".join(w)
 
 
 def syllabify(word):
@@ -68,21 +68,21 @@ def syllabify(word):
                     state = 0
     result.insert(0, current_syllable)
     assert state != 0, word
-    return result
+    return ["".join(syllable) for syllable in result]
 
 
 def ultima(w):
-    return "".join(syllabify(w)[-1])
+    return syllabify(w)[-1]
 
 
 def penult(w):
     s = syllabify(w)
-    return "".join(s[-2]) if len(s) >= 2 else None
+    return s[-2] if len(s) >= 2 else None
 
 
 def antepenult(w):
     s = syllabify(w)
-    return "".join(s[-3]) if len(s) >= 3 else None
+    return s[-3] if len(s) >= 3 else None
 
 
 def onset(s):
@@ -241,10 +241,7 @@ def syllable_morae(s, number):
 def morae(w):
     return [
         syllable_morae(s, number)
-        for number, s in enumerate([
-            "".join(l)
-            for l in syllabify(w)
-        ][:-4:-1])
+        for number, s in enumerate(syllabify(w)[:-4:-1])
     ][::-1]
 
 

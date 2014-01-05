@@ -8,27 +8,27 @@ def syllable_add_accent(s, a):
 
 
 def oxytone(s):
-    return "".join(s[:-1]) + syllable_add_accent(s[-1], ACUTE)
+    return s[:-1] + syllable_add_accent(s[-1], ACUTE)
 
 
 def paroxytone(s):
-    return "".join(s[:-2]) + syllable_add_accent(s[-2], ACUTE) + s[-1]
+    return s[:-2] + syllable_add_accent(s[-2], ACUTE) + s[-1]
 
 
 def proparoxytone(s):
-    return "".join(s[:-3]) + syllable_add_accent(s[-3], ACUTE) + "".join(s[-2:])
+    return s[:-3] + syllable_add_accent(s[-3], ACUTE) + s[-2:]
 
 
 def perispomenon(s):
-    return "".join(s[:-1]) + syllable_add_accent(s[-1], CIRCUMFLEX)
+    return s[:-1] + syllable_add_accent(s[-1], CIRCUMFLEX)
 
 
 def properispomenon(s):
-    return "".join(s[:-2]) + syllable_add_accent(s[-2], CIRCUMFLEX) + s[-1]
+    return s[:-2] + syllable_add_accent(s[-2], CIRCUMFLEX) + s[-1]
 
 
 def possible_accentuations(w):
-    s = ["".join(x) for x in syllabify(w)]
+    s = syllabify(w)
     ultima_length = syllable_length(s[-1], True)
     penult_length = syllable_length(s[-2], False) if len(s) >= 2 else None
     if ultima_length == SHORT:
