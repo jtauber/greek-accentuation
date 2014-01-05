@@ -7,24 +7,29 @@ def syllable_add_accent(s, a):
     return o + add_diacritic(n, a) + c
 
 
+def add_accent(s, pos, accent):
+    final = s[1-pos:] if pos > 1 else [""]
+    return "".join(s[:-pos] + [syllable_add_accent(s[-pos], accent)] + final)
+
+
 def oxytone(s):
-    return "".join(s[:-1] + [syllable_add_accent(s[-1], ACUTE)] + s[:0])
+    return add_accent(s, 1, ACUTE), 1
 
 
 def paroxytone(s):
-    return "".join(s[:-2] + [syllable_add_accent(s[-2], ACUTE)] + s[-1:])
+    return add_accent(s, 2, ACUTE), 3
 
 
 def proparoxytone(s):
-    return "".join(s[:-3] + [syllable_add_accent(s[-3], ACUTE)] + s[-2:])
+    return add_accent(s, 3, ACUTE), 5
 
 
 def perispomenon(s):
-    return "".join(s[:-1] + [syllable_add_accent(s[-1], CIRCUMFLEX)] + s[:0])
+    return add_accent(s, 1, CIRCUMFLEX), 2
 
 
 def properispomenon(s):
-    return "".join(s[:-2] + [syllable_add_accent(s[-2], CIRCUMFLEX)] + s[-1:])
+    return add_accent(s, 2, CIRCUMFLEX), 4
 
 
 def possible_accentuations(w):
