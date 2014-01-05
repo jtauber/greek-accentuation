@@ -8,23 +8,23 @@ def syllable_add_accent(s, a):
 
 
 def oxytone(s):
-    return s[:-1] + syllable_add_accent(s[-1], ACUTE)
+    return "".join(s[:-1] + [syllable_add_accent(s[-1], ACUTE)] + s[:0])
 
 
 def paroxytone(s):
-    return s[:-2] + syllable_add_accent(s[-2], ACUTE) + s[-1]
+    return "".join(s[:-2] + [syllable_add_accent(s[-2], ACUTE)] + s[-1:])
 
 
 def proparoxytone(s):
-    return s[:-3] + syllable_add_accent(s[-3], ACUTE) + s[-2:]
+    return "".join(s[:-3] + [syllable_add_accent(s[-3], ACUTE)] + s[-2:])
 
 
 def perispomenon(s):
-    return s[:-1] + syllable_add_accent(s[-1], CIRCUMFLEX)
+    return "".join(s[:-1] + [syllable_add_accent(s[-1], CIRCUMFLEX)] + s[:0])
 
 
 def properispomenon(s):
-    return s[:-2] + syllable_add_accent(s[-2], CIRCUMFLEX) + s[-1]
+    return "".join(s[:-2] + [syllable_add_accent(s[-2], CIRCUMFLEX)] + s[-1:])
 
 
 def possible_accentuations(w):
