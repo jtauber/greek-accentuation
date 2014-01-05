@@ -73,8 +73,15 @@ def possible_accentuations(w):
         yield oxytone(s)
 
 
+def recessive(w):
+    return sorted(possible_accentuations(w), key=lambda x: x[1], reverse=True)[0][0]
+
+
 if __name__ == "__main__":
     assert syllable_add_accent("κος", ACUTE) == "κός"
     assert syllable_add_accent("ος", ACUTE) == "ός"
     assert syllable_add_accent("ου", CIRCUMFLEX) == "οῦ"
     assert syllable_add_accent("φως", CIRCUMFLEX) == "φῶς"
+
+    assert recessive("εγινωσκον") == "εγίνωσκον"
+    assert recessive("εγινωσκου") == "εγινώσκου"
