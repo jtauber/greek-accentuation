@@ -148,8 +148,9 @@ UNKNOWN = "unknown"
 
 def syllable_length(s, final=None):
     n = nucleus(s)
+    r = rime(s)
     if len(n) > 1:
-        b = base(n[0]) + base(n[1])
+        b = "".join(base(ch) for ch in r)
         if final is True:
             if b in ["αι", "οι"]:
                 return SHORT
