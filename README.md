@@ -1,7 +1,10 @@
-greek-accentuation
-==================
+# greek-accentuation
 
-Python library for accenting (and analyzing the accentuation of) Ancient Greek words
+Python 3 library for accenting (and analyzing the accentuation of) Ancient Greek words
+
+## Installation
+
+    pip install greek-accentuation==0.2
 
 ## Change Log
 
