@@ -7,74 +7,86 @@ def syllable_add_accent(s, a):
     return o + add_diacritic(n, a) + c
 
 
-def add_accent(s, pos, accent):
+def add_accent(s, accent_type):
+    pos, accent = accent_type
     final = s[1-pos:] if pos > 1 else [""]
     return "".join(s[:-pos] + [syllable_add_accent(s[-pos], accent)] + final)
 
 
-def oxytone(s):
-    return add_accent(s, 1, ACUTE), 1
+OXYTONE = 1, ACUTE
+PERISPOMENON = 1, CIRCUMFLEX
+PAROXYTONE = 2, ACUTE
+PROPERISPOMENON = 2, CIRCUMFLEX
+PROPAROXYTONE = 3, ACUTE
 
 
-def paroxytone(s):
-    return add_accent(s, 2, ACUTE), 3
+def make_oxytone(w):
+    return add_accent(syllabify(w), OXYTONE)
 
 
-def proparoxytone(s):
-    return add_accent(s, 3, ACUTE), 5
+def make_paroxytone(w):
+    return add_accent(syllabify(w), PAROXYTONE)
 
 
-def perispomenon(s):
-    return add_accent(s, 1, CIRCUMFLEX), 2
-
-
-def properispomenon(s):
-    return add_accent(s, 2, CIRCUMFLEX), 4
-
-
-def possible_accentuations(w):
+def make_perispomenon(w):
     s = syllabify(w)
+    if PERISPOMENON in possible_accentuations(s):
+        return add_accent(s, PERISPOMENON)
+    else:
+        return add_accent(s, OXYTONE)
+
+
+def make_properispomenon(w):
+    s = syllabify(w)
+    if PROPERISPOMENON in possible_accentuations(s):
+        return add_accent(s, PROPERISPOMENON)
+    else:
+        return add_accent(s, PAROXYTONE)
+
+
+def possible_accentuations(s):
     ultima_length = syllable_length(s[-1], True)
     penult_length = syllable_length(s[-2], False) if len(s) >= 2 else None
     if ultima_length == SHORT:
         if len(s) >= 3:
-            yield proparoxytone(s)
+            yield PROPAROXYTONE
         if penult_length == SHORT:
-            yield paroxytone(s)
+            yield PAROXYTONE
         elif penult_length == LONG:
-            yield properispomenon(s)
+            yield PROPERISPOMENON
         elif penult_length == UNKNOWN:
             # conditional on short penult
-            yield paroxytone(s)
+            yield PAROXYTONE
             # conditional on long penult
-            yield properispomenon(s)
-        yield oxytone(s)
+            yield PROPERISPOMENON
+        yield OXYTONE
     elif ultima_length == LONG:
         if len(s) >= 2:
-            yield paroxytone(s)
-        yield oxytone(s)
-        yield perispomenon(s)
+            yield PAROXYTONE
+        yield OXYTONE
+        yield PERISPOMENON
     elif ultima_length == UNKNOWN:
         if len(s) >= 3:
             # conditional on short ultima
-            yield proparoxytone(s)
+            yield PROPAROXYTONE
         if penult_length == SHORT:
-            yield paroxytone(s)
+            yield PAROXYTONE
         elif penult_length == LONG:
             # conditional on short ultima
-            yield properispomenon(s)
+            yield PROPERISPOMENON
         elif penult_length == UNKNOWN:
             # conditional on short penult
-            yield paroxytone(s)
+            yield PAROXYTONE
             # conditional on long penult
-            yield properispomenon(s)
+            yield PROPERISPOMENON
         # conditional on long ultima
-        yield perispomenon(s)
-        yield oxytone(s)
+        yield PERISPOMENON
+        yield OXYTONE
 
 
 def recessive(w):
-    return sorted(possible_accentuations(w), key=lambda x: x[1], reverse=True)[0][0]
+    s = syllabify(w)
+    return add_accent(s, sorted(possible_accentuations(s), reverse=True)[0])
 
 
 if __name__ == "__main__":
