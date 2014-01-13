@@ -1,5 +1,5 @@
-from characters import add_diacritic, ACUTE, CIRCUMFLEX
-from syllabify import onset_nucleus_coda, syllabify, SHORT, LONG, UNKNOWN, syllable_length
+from characters import add_diacritic, strip_length, ACUTE, CIRCUMFLEX, SHORT, LONG
+from syllabify import onset_nucleus_coda, syllabify, UNKNOWN, syllable_length
 
 
 def syllable_add_accent(s, a):
@@ -97,3 +97,7 @@ if __name__ == "__main__":
 
     assert recessive("εγινωσκον") == "εγίνωσκον"
     assert recessive("εγινωσκου") == "εγινώσκου"
+
+    assert strip_length(recessive("δεικνυς")) == "δεῖκνυς"
+    assert strip_length(recessive("δεικνῠς")) == "δεῖκνυς"
+    assert strip_length(recessive("δεικνῡς")) == "δείκνυς"

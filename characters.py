@@ -45,6 +45,21 @@ def iota_subscript(ch):
 ypogegrammeni = iota_subscript
 
 
+SHORT = "\u0306"
+LONG = "\u0304"
+
+def length(ch):
+    decomposed_form = unicodedata.normalize("NFD", ch)
+    for diacritic in [SHORT, LONG]:
+        if diacritic in decomposed_form:
+            return diacritic
+
+
+def strip_length(t):
+    return unicodedata.normalize("NFC", "".join(ch for ch in unicodedata.normalize("NFD", t) if ch not in [SHORT, LONG]))
+
+
+
 def add_diacritic(base, diacritic):
     return unicodedata.normalize("NFC", base + diacritic)
 
@@ -60,6 +75,10 @@ if __name__ == "__main__":
     assert diaeresis("ϋ") == DIAERESIS
     assert iota_subscript("ᾳ") == IOTA_SUBSCRIPT
     assert not iota_subscript("α")
+
+    assert length("ῠ") == SHORT
+    assert length("ῡ") == LONG
+    assert length("υ") is None # i.e. unknown
 
     assert add_diacritic("υ", DIAERESIS) == "ϋ"
     assert add_diacritic("α", YPOGEGRAMMENI) == "ᾳ"

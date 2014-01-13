@@ -1,5 +1,5 @@
-from characters import accent, base, diaeresis, iota_subscript
-from characters import ACUTE, CIRCUMFLEX, GRAVE
+from characters import accent, base, diaeresis, iota_subscript, length
+from characters import ACUTE, CIRCUMFLEX, GRAVE, SHORT, LONG
 
 def is_vowel(ch):
     return base(ch).lower() in "αεηιουω"
@@ -142,9 +142,8 @@ def body(s):
     return s
 
 
-LONG = "long"
-SHORT = "short"
-UNKNOWN = "unknown"
+UNKNOWN = None
+
 
 def syllable_length(s, final=None):
     n = nucleus(s)
@@ -168,9 +167,9 @@ def syllable_length(s, final=None):
             return LONG
         else:
             b = base(n)
-            if b in "εο":
+            if b in "εο" or length(n) == SHORT:
                 return SHORT
-            elif b in "ηω":
+            elif b in "ηω" or length(n) == LONG:
                 return LONG
             else: # αιυ
                 return UNKNOWN
