@@ -48,17 +48,18 @@ def possible_accentuations(s):
     ultima_length = syllable_length(s[-1], True)
     penult_length = syllable_length(s[-2], False) if len(s) >= 2 else None
     if ultima_length == SHORT:
-        if len(s) >= 3:
-            yield PROPAROXYTONE
-        if penult_length == SHORT:
-            yield PAROXYTONE
-        elif penult_length == LONG:
-            yield PROPERISPOMENON
-        elif penult_length == UNKNOWN:
-            # conditional on short penult
-            yield PAROXYTONE
-            # conditional on long penult
-            yield PROPERISPOMENON
+        if len(s) >= 2:
+            if len(s) >= 3:
+                yield PROPAROXYTONE
+            if penult_length == SHORT:
+                yield PAROXYTONE
+            elif penult_length == LONG:
+                yield PROPERISPOMENON
+            elif penult_length == UNKNOWN:
+                # conditional on short penult
+                yield PAROXYTONE
+                # conditional on long penult
+                yield PROPERISPOMENON
         yield OXYTONE
     elif ultima_length == LONG:
         if len(s) >= 2:
@@ -97,6 +98,7 @@ if __name__ == "__main__":
 
     assert recessive("εγινωσκον") == "εγίνωσκον"
     assert recessive("εγινωσκου") == "εγινώσκου"
+    assert recessive("δος") == "δός"
 
     assert strip_length(recessive("δεικνυς")) == "δεῖκνυς"
     assert strip_length(recessive("δεικνῠς")) == "δεῖκνυς"
