@@ -67,19 +67,20 @@ def possible_accentuations(s):
         yield OXYTONE
         yield PERISPOMENON
     elif ultima_length == UNKNOWN:
-        if len(s) >= 3:
-            # conditional on short ultima
-            yield PROPAROXYTONE
-        if penult_length == SHORT:
-            yield PAROXYTONE
-        elif penult_length == LONG:
-            # conditional on short ultima
-            yield PROPERISPOMENON
-        elif penult_length == UNKNOWN:
-            # conditional on short penult
-            yield PAROXYTONE
-            # conditional on long penult
-            yield PROPERISPOMENON
+        if len(s) >= 2:
+            if len(s) >= 3:
+                # conditional on short ultima
+                yield PROPAROXYTONE
+            if penult_length == SHORT:
+                yield PAROXYTONE
+            elif penult_length == LONG:
+                # conditional on short ultima
+                yield PROPERISPOMENON
+            elif penult_length == UNKNOWN:
+                # conditional on short penult
+                yield PAROXYTONE
+                # conditional on long penult
+                yield PROPERISPOMENON
         # conditional on long ultima
         yield PERISPOMENON
         yield OXYTONE
@@ -99,6 +100,7 @@ if __name__ == "__main__":
     assert recessive("εγινωσκον") == "εγίνωσκον"
     assert recessive("εγινωσκου") == "εγινώσκου"
     assert recessive("δος") == "δός"
+    assert recessive("δας") == "δᾶς"
 
     assert strip_length(recessive("δεικνυς")) == "δεῖκνυς"
     assert strip_length(recessive("δεικνῠς")) == "δεῖκνυς"
