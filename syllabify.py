@@ -120,6 +120,7 @@ def onset_nucleus_coda(s):
         if not is_vowel(ch):
             nucleus = s[i:i+j]
             coda = s[i+j:]
+            break
     if not nucleus:
         nucleus = s[i:]
         coda = ""
@@ -281,6 +282,8 @@ if __name__ == "__main__":
     assert not onset("οἰ")
 
     assert onset_nucleus_coda("οἰ") == ("", "οἰ", "")
+
+    assert onset_nucleus_coda("ἠ(ν)") == ("", "ἠ", "(ν)")
 
     assert syllable_length("κός") == SHORT
     assert syllable_length("οἰ", final=False) == LONG
