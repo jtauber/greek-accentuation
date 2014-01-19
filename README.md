@@ -4,10 +4,11 @@ Python 3 library for accenting (and analyzing the accentuation of) Ancient Greek
 
 ## Installation
 
-    pip install greek-accentuation==0.6
+    pip install greek-accentuation==0.7
 
 ## Change Log
 
+# 0.7 added make_proparoxytone function
 * 0.6 fixed another bug where possible_accentuations wouldn't work with single syllable words
 * 0.5 fixed bug where possible_accentuations wouldn't work with single syllable words
 * 0.4.1 added classifiers for PyPI
