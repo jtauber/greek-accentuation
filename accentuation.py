@@ -28,6 +28,10 @@ def make_paroxytone(w):
     return add_accent(syllabify(w), PAROXYTONE)
 
 
+def make_proparoxytone(w):
+    return add_accent(syllabify(w), PROPAROXYTONE)
+
+
 def make_perispomenon(w):
     s = syllabify(w)
     if PERISPOMENON in possible_accentuations(s):
