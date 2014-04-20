@@ -8,8 +8,8 @@ Python 3 library for accenting (and analyzing the accentuation of) Ancient Greek
 
 ## Change Log
 
-# 0.8 fixed bug in nucleus/coda calculation
-# 0.7 added make_proparoxytone function
+* 0.8 fixed bug in nucleus/coda calculation
+* 0.7 added make_proparoxytone function
 * 0.6 fixed another bug where possible_accentuations wouldn't work with single syllable words
 * 0.5 fixed bug where possible_accentuations wouldn't work with single syllable words
 * 0.4.1 added classifiers for PyPI
