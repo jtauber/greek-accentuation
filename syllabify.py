@@ -15,21 +15,19 @@ def is_diphthong(chs):
 
 def is_valid_consonant_cluster(b, c):
     s = base(b).lower() + ("".join(base(b2) for b2 in c)).lower()
-    return s[:2] in [
-              "βδ",             "βλ",                   "βρ",
-                                "γλ",       "γν",       "γρ",
-                                                        "δρ",
-                                "θλ",       "θν",       "θρ",
-                                "κλ",       "κν",       "κρ", "κτ",
-                                            "μν",
-                                "πλ",       "πν",       "πρ", "πτ",
-        "σβ",       "σθ", "σκ",       "σμ",       "σπ",       "στ", "σφ", "σχ",
-                                                        "τρ",
-                    "φθ",       "φλ",                   "φρ",
-                                "χλ",                   "χρ",
-    ] or s[:3] in [
-        "στρ",
-    ]
+    return s.endswith((
+        "βδ", "βλ", "βρ",
+        "γλ", "γν", "γρ",
+        "δρ",
+        "θλ", "θν", "θρ",
+        "κλ", "κν", "κρ", "κτ",
+        "μν",
+        "πλ", "πν", "πρ", "πτ",
+        "σβ", "σθ", "σκ", "σμ", "σπ", "στ", "σφ", "σχ", "στρ",
+        "τρ",
+        "φθ", "φλ", "φρ",
+        "χλ", "χρ",
+    ))
 
 
 def display_word(w):
@@ -173,7 +171,7 @@ def syllable_length(s, final=None):
                 return SHORT
             elif b in "ηω" or length(n) == LONG:
                 return LONG
-            else: # αιυ
+            else:  # αιυ
                 return UNKNOWN
 
 
