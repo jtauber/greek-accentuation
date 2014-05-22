@@ -340,3 +340,8 @@ The ``recessive`` function will find the most recessive possible accent:
 
 >>> strip_length(recessive('δεικνῡς'))
 'δείκνυς'
+
+
+>>> s = syllabify('ἀληθειᾰ')
+>>> for accent_class in possible_accentuations(s):
+...     print(add_accent(s, accent_class))
