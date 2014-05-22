@@ -1,4 +1,5 @@
-from characters import add_diacritic, strip_length, ACUTE, CIRCUMFLEX, SHORT, LONG
+from characters import add_diacritic, strip_length
+from characters import ACUTE, CIRCUMFLEX, SHORT, LONG
 from syllabify import onset_nucleus_coda, syllabify, UNKNOWN, syllable_length
 
 

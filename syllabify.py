@@ -1,6 +1,7 @@
 from characters import accent, base, diaeresis, iota_subscript, length
 from characters import ACUTE, CIRCUMFLEX, GRAVE, SHORT, LONG
 
+
 def is_vowel(ch):
     return base(ch).lower() in "αεηιουω"
 
