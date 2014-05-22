@@ -70,25 +70,3 @@ LONG = "\u0304"
 length = extract_diacritic(SHORT, LONG)
 
 strip_length = remove_diacritic(SHORT, LONG)
-
-
-if __name__ == "__main__":
-    assert base("ὅ") == "ο"
-    assert breathing("ὅ") == ROUGH
-    assert accent("ὅ") == ACUTE
-    assert not diaeresis("ὅ")
-    assert base("ϋ") == "υ"
-    assert not breathing("ϋ")
-    assert not accent("ϋ")
-    assert diaeresis("ϋ") == DIAERESIS
-    assert iota_subscript("ᾳ") == IOTA_SUBSCRIPT
-    assert not iota_subscript("α")
-
-    assert length("ῠ") == SHORT
-    assert length("ῡ") == LONG
-    assert length("υ") is None  # i.e. unknown
-    assert strip_length("ῡ") == "υ"
-
-    assert add_diacritic("υ", DIAERESIS) == "ϋ"
-    assert add_diacritic("α", YPOGEGRAMMENI) == "ᾳ"
-    assert add_diacritic(add_diacritic("ο", ROUGH), ACUTE) == "ὅ"
