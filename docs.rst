@@ -263,3 +263,80 @@ Finally, there is an experimental ``morae`` function:
 
 >>> morae('δοῦλος')
 ['Mm', 'm']
+
+
+Accentuation
+============
+
+>>> from accentuation import *
+
+The ``accentuation`` module uses the two modules above to analyze and
+manipulate the accentuation of Greek words.
+
+
+Firstly, the ``syllable_add_accent`` adds the given accent to a syllable:
+
+>>> syllable_add_accent('κος', ACUTE)
+'κός'
+
+>>> syllable_add_accent('ος', ACUTE)
+'ός'
+
+>>> syllable_add_accent('ου', CIRCUMFLEX)
+'οῦ'
+
+>>> syllable_add_accent('φως', CIRCUMFLEX)
+'φῶς'
+
+
+>>> make_oxytone('θεος')
+'θεός'
+
+This is the same as:
+
+>>> add_accent(syllabify('θεος'), OXYTONE)
+'θεός'
+
+
+The module also provides:
+
+>>> make_paroxytone('λογος')
+'λόγος'
+
+>>> make_proparoxytone('κυριος')
+'κύριος'
+
+>>> make_perispomenon('θεου')
+'θεοῦ'
+
+>>> make_properispomenon('δουλος')
+'δοῦλος'
+
+
+Given a syllabification, ``possible_accentuations`` will give the possible
+accentuations given the general rules of Greek accentuation:
+
+>>> s = syllabify('εγινωσκου')
+>>> for accent_class in possible_accentuations(s):
+...     print(add_accent(s, accent_class))
+εγινώσκου
+εγινωσκού
+εγινωσκοῦ
+
+
+The ``recessive`` function will find the most recessive possible accent:
+
+>>> recessive('εγινωσκον')
+'εγίνωσκον'
+
+>>> recessive('εγινωσκου')
+'εγινώσκου'
+
+>>> strip_length(recessive('δεικνυς'))
+'δεῖκνυς'
+
+>>> strip_length(recessive('δεικνῠς'))
+'δεῖκνυς'
+
+>>> strip_length(recessive('δεικνῡς'))
+'δείκνυς'

@@ -1,4 +1,4 @@
-from characters import add_diacritic, strip_length
+from characters import add_diacritic
 from characters import ACUTE, CIRCUMFLEX, SHORT, LONG
 from syllabify import onset_nucleus_coda, syllabify, UNKNOWN, syllable_length
 
@@ -94,19 +94,3 @@ def possible_accentuations(s):
 def recessive(w):
     s = syllabify(w)
     return add_accent(s, sorted(possible_accentuations(s), reverse=True)[0])
-
-
-if __name__ == "__main__":
-    assert syllable_add_accent("κος", ACUTE) == "κός"
-    assert syllable_add_accent("ος", ACUTE) == "ός"
-    assert syllable_add_accent("ου", CIRCUMFLEX) == "οῦ"
-    assert syllable_add_accent("φως", CIRCUMFLEX) == "φῶς"
-
-    assert recessive("εγινωσκον") == "εγίνωσκον"
-    assert recessive("εγινωσκου") == "εγινώσκου"
-    assert recessive("δος") == "δός"
-    assert recessive("δας") == "δᾶς"
-
-    assert strip_length(recessive("δεικνυς")) == "δεῖκνυς"
-    assert strip_length(recessive("δεικνῠς")) == "δεῖκνυς"
-    assert strip_length(recessive("δεικνῡς")) == "δείκνυς"
