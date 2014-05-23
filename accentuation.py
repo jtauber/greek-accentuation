@@ -1,6 +1,7 @@
 from characters import add_diacritic
 from characters import ACUTE, CIRCUMFLEX, SHORT, LONG
 from syllabify import onset_nucleus_coda, syllabify, UNKNOWN, syllable_length
+from syllabify import syllable_accent, ultima, penult, antepenult
 
 
 def syllable_add_accent(s, a):
@@ -57,6 +58,22 @@ def make_properispomenon(w):
         return add_accent(s, PROPERISPOMENON)
     else:
         return add_accent(s, PAROXYTONE)
+
+
+def get_accent_type(w):
+    u = syllable_accent(ultima(w))
+    if u == ACUTE:
+        return OXYTONE
+    elif u == CIRCUMFLEX:
+        return PERISPOMENON
+    p = syllable_accent(penult(w))
+    if p == ACUTE:
+        return PAROXYTONE
+    elif p == CIRCUMFLEX:
+        return PROPERISPOMENON
+    a = syllable_accent(antepenult(w))
+    if a == ACUTE:
+        return PROPAROXYTONE
 
 
 def possible_accentuations(s):
