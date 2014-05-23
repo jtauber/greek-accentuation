@@ -15,7 +15,7 @@ def is_diphthong(chs):
 
 def is_valid_consonant_cluster(b, c):
     s = base(b).lower() + ("".join(base(b2) for b2 in c)).lower()
-    return s.endswith((
+    return s.startswith((
         "βδ", "βλ", "βρ",
         "γλ", "γν", "γρ",
         "δρ",
