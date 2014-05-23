@@ -11,7 +11,7 @@ def syllable_add_accent(s, a):
 
 def add_accent(s, accent_type):
     pos, accent = accent_type
-    final = s[1-pos:] if pos > 1 else [""]
+    final = s[1 - pos:] if pos > 1 else [""]
     return "".join(s[:-pos] + [syllable_add_accent(s[-pos], accent)] + final)
 
 
