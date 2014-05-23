@@ -21,6 +21,16 @@ PROPERISPOMENON = 2, CIRCUMFLEX
 PROPAROXYTONE = 3, ACUTE
 
 
+def display_accent_type(accent_type):
+    return {
+        OXYTONE: "oxytone",
+        PERISPOMENON: "perispomenon",
+        PAROXYTONE: "paroxytone",
+        PROPERISPOMENON: "properispomenon",
+        PROPAROXYTONE: "proparoxytone",
+    }[accent_type]
+
+
 def make_oxytone(w):
     return add_accent(syllabify(w), OXYTONE)
 
