@@ -243,3 +243,17 @@ def morae(w):
         syllable_morae(s, number)
         for number, s in enumerate(syllabify(w)[:-4:-1])
     ][::-1]
+
+
+def contonation(w):
+    s = syllabify(w)
+    for i, syllable in enumerate(s):
+        a = syllable_accent(syllable)
+        if a == ACUTE:
+            if i + 1 == len(s):
+                return [i + 1]
+            else:
+                return [i + 1, i + 2]
+        elif a == CIRCUMFLEX:
+            return [i + 1]
+    return [i + 1]

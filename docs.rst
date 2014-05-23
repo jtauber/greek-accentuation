@@ -244,7 +244,7 @@ True
 True
 
 
-Finally, there is an experimental ``morae`` function:
+Finally, there are two experimental functions ``morae`` and ``contonation``:
 
 >>> morae('γυναικός')
 ['u', 'mm', 'M']
@@ -263,6 +263,31 @@ Finally, there is an experimental ``morae`` function:
 
 >>> morae('δοῦλος')
 ['Mm', 'm']
+
+
+>>> contonation('ἀγαθός')
+[3]
+
+>>> contonation('ψυχή')
+[2]
+
+>>> contonation('ἀγαθοῦ')
+[3]
+
+>>> contonation('νόμος')
+[1, 2]
+
+>>> contonation('νόμου')
+[1, 2]
+
+>>> contonation('πεῖραι')
+[1]
+
+>>> contonation('πείραις')
+[1, 2]
+
+>>> contonation('ἄνθρωπε')
+[1, 2]
 
 
 Accentuation
