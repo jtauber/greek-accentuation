@@ -123,13 +123,20 @@ def recessive(w):
     return add_accent(s, sorted(possible_accentuations(s), reverse=True)[0])
 
 
-def persistent(w, nom_sing, case="-", number="-", gender="-", pos="N", declension=None):
+def persistent(
+    w, nom_sing, case="-", number="-", gender="-", pos="N",
+    declension=None
+):
     place, accent = get_accent_type(nom_sing)
     s = syllabify(w)
     diff = len(s) - len(syllabify(nom_sing))
     if place == 1 and declension != 3 and case in "GD":
         accent_type = PERISPOMENON
-    elif (nom_sing.endswith(("η", "α", "ᾱ")) or (pos == "A" and gender == "F")) and (case, number) == ("G", "P"):
+    elif (
+        nom_sing.endswith(("η", "α", "ᾱ"))
+        or
+        (pos == "A" and gender == "F")
+    ) and (case, number) == ("G", "P"):
         accent_type = PERISPOMENON
     elif declension == 3 and len(syllabify(nom_sing)) == 1:
         if case in "GD":

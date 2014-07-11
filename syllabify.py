@@ -96,7 +96,7 @@ def nucleus(s):
             break
     for j, ch in enumerate(s[i:]):
         if not is_vowel(ch):
-            return s[i:i+j]
+            return s[i:i + j]
     return s[i:]
 
 
@@ -106,7 +106,7 @@ def coda(s):
             break
     for j, ch in enumerate(s[i:]):
         if not is_vowel(ch):
-            return s[i+j:]
+            return s[i + j:]
 
 
 def onset_nucleus_coda(s):
@@ -117,8 +117,8 @@ def onset_nucleus_coda(s):
     nucleus = ""
     for j, ch in enumerate(s[i:]):
         if not is_vowel(ch):
-            nucleus = s[i:i+j]
-            coda = s[i+j:]
+            nucleus = s[i:i + j]
+            coda = s[i + j:]
             break
     if not nucleus:
         nucleus = s[i:]
@@ -138,7 +138,7 @@ def body(s):
             break
     for j, ch in enumerate(s[i:]):
         if not is_vowel(ch):
-            return s[:i+j]
+            return s[:i + j]
     return s
 
 
