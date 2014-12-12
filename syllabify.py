@@ -3,7 +3,7 @@ from characters import ACUTE, CIRCUMFLEX, GRAVE, SHORT, LONG
 
 
 def is_vowel(ch):
-    return base(ch).lower() in "αεηιουω"
+    return base(ch).lower() in "αεηιουω~"
 
 
 def is_diphthong(chs):
