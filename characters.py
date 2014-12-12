@@ -45,6 +45,7 @@ DASIA = ROUGH = "\u0314"
 
 breathing = extract_diacritic(SMOOTH, ROUGH)
 
+strip_breathing = remove_diacritic(SMOOTH, ROUGH)
 
 OXIA = ACUTE = "\u0301"
 VARIA = GRAVE = "\u0300"
