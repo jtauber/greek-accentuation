@@ -123,6 +123,17 @@ def recessive(w):
     return add_accent(s, sorted(possible_accentuations(s), reverse=True)[0])
 
 
+def on_penult(w):
+    s = syllabify(w)
+    accentuations = list(possible_accentuations(s))
+    if PROPERISPOMENON in accentuations:
+        return add_accent(s, PROPERISPOMENON)
+    elif PAROXYTONE in accentuations:
+        return add_accent(s, PAROXYTONE)
+    else:
+        return add_accent(s, sorted(accentuations, reverse=True)[0])
+
+
 def persistent(
     w, nom_sing, case="-", number="-", gender="-", pos="N",
     declension=None
