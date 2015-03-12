@@ -76,8 +76,8 @@ def get_accent_type(w):
         return PROPAROXYTONE
 
 
-def possible_accentuations(s):
-    ultima_length = syllable_length(s[-1], True)
+def possible_accentuations(s, treat_final_AI_OI_short=True):
+    ultima_length = syllable_length(s[-1], treat_final_AI_OI_short)
     penult_length = syllable_length(s[-2], False) if len(s) >= 2 else None
     if ultima_length == SHORT:
         if len(s) >= 2:
@@ -118,9 +118,9 @@ def possible_accentuations(s):
         yield OXYTONE
 
 
-def recessive(w):
+def recessive(w, treat_final_AI_OI_short=True):
     s = syllabify(w)
-    return add_accent(s, sorted(possible_accentuations(s), reverse=True)[0])
+    return add_accent(s, sorted(possible_accentuations(s, treat_final_AI_OI_short), reverse=True)[0])
 
 
 def on_penult(w):
