@@ -149,43 +149,31 @@ def on_penult(w, default_short=False):
         return pre + add_accent(s, sorted(accentuations, reverse=True)[0])
 
 
-def persistent(
-    w, nom_sing, case="-", number="-", gender="-", pos="N",
-    declension=None
-):
-    place, accent = get_accent_type(nom_sing)
+def persistent(w, lemma):
+    w = w.replace("|", "")
+
+    place, accent = get_accent_type(lemma)
     s = syllabify(w)
-    diff = len(s) - len(syllabify(nom_sing))
-    if place == 1 and declension != 3 and case in "GD":
-        accent_type = PERISPOMENON
-    elif (
-        nom_sing.endswith(("η", "α", "ᾱ"))
-        or
-        (pos == "A" and gender == "F")
-    ) and (case, number) == ("G", "P"):
-        accent_type = PERISPOMENON
-    elif declension == 3 and len(syllabify(nom_sing)) == 1:
-        if case in "GD":
-            if syllable_length(s[-1]) == SHORT:
-                accent_type = OXYTONE
-            elif syllable_length(s[-1]) == LONG:
-                accent_type = PERISPOMENON
-            else:
-                assert False
-        elif len(s) == 1:
-            accent_type = (1, accent)
-        else:  # non-GD and len(s) > 1
-            if syllable_length(s[-2]) == SHORT:
-                accent_type = PAROXYTONE
-            elif syllable_length(s[-2]) == LONG:
-                accent_type = PROPERISPOMENON
-            else:
-                assert False
-    elif (place + diff, accent) in possible_accentuations(s):
-        accent_type = (place + diff, accent)
-    else:
-        accent_type = sorted([
-            (pl, ac) for pl, ac in possible_accentuations(s) if pl <= place
-        ], reverse=True)[0]
-    assert accent_type in possible_accentuations(s)
+    possible = list(possible_accentuations(s))
+    place2 = len(s) - len(syllabify(lemma)) + place
+    accent_type = (place2, accent)
+    if accent_type not in possible:
+        if accent == CIRCUMFLEX and (place2, ACUTE) in possible:
+            accent_type = (place2, ACUTE)
+        elif accent == ACUTE and (place2, CIRCUMFLEX) in possible:
+            accent_type = (place2, CIRCUMFLEX)
+        elif (place2 - 1, CIRCUMFLEX) in possible:
+            accent_type = (place2 - 1, CIRCUMFLEX)
+        elif (place2 - 1, ACUTE) in possible:
+            accent_type = (place2 - 1, ACUTE)
+        elif (place2 - 2, CIRCUMFLEX) in possible:
+            accent_type = (place2 - 2, CIRCUMFLEX)
+        elif (place2 - 2, ACUTE) in possible:
+            accent_type = (place2 - 2, ACUTE)
+        elif (place2 - 3, CIRCUMFLEX) in possible:
+            accent_type = (place2 - 3, CIRCUMFLEX)
+        elif (place2 - 3, ACUTE) in possible:
+            accent_type = (place2 - 3, ACUTE)
+        else:
+            raise Exception(w, lemma)
     return add_accent(s, accent_type)
