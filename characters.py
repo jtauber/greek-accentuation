@@ -53,6 +53,7 @@ PERISPOMENI = CIRCUMFLEX = "\u0342"
 
 accent = extract_diacritic(ACUTE, GRAVE, CIRCUMFLEX)
 
+strip_accents = remove_diacritic(ACUTE, GRAVE, CIRCUMFLEX)
 
 DIAERESIS = "\u0308"
 
