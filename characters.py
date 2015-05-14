@@ -71,3 +71,13 @@ LONG = "\u0304"
 length = extract_diacritic(SHORT, LONG)
 
 strip_length = remove_diacritic(SHORT, LONG)
+
+
+def remove_redundant_macron(word):
+
+    # if a circumflex, no need for macron indicating length
+
+    if "\u0304\u0342" in unicodedata.normalize("NFD", word):
+        return strip_length(word)
+    else:
+        return word
