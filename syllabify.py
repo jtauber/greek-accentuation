@@ -1,4 +1,5 @@
 from characters import accent, base, diaeresis, iota_subscript, length
+from characters import breathing, add_diacritic, SMOOTH
 from characters import ACUTE, CIRCUMFLEX, GRAVE, SHORT, LONG
 
 
@@ -257,3 +258,23 @@ def contonation(w):
         elif a == CIRCUMFLEX:
             return [i + 1]
     return [i + 1]
+
+
+def add_necessary_breathing(w):
+    s = syllabify(w)
+    o, n, c = onset_nucleus_coda(s[0])
+    if o == "" and not breathing(n):
+        a = accent(n)
+        if a:
+            if len(n) == 2:
+                n = n[0] + add_diacritic(add_diacritic(base(n[1]), SMOOTH), a)
+            else:
+                n = add_diacritic(add_diacritic(base(n), SMOOTH), a)
+        else:
+            if len(n) == 2:
+                n = n[0] + add_diacritic(base(n[1]), SMOOTH)
+            else:
+                n = add_diacritic(base(n), SMOOTH)
+        return o + n + c + "".join(s[1:])
+    else:
+        return w
