@@ -6,10 +6,28 @@ Greek words.
 
 ## Installation
 
-    pip install greek-accentuation==0.8
+    pip install greek-accentuation==0.9
 
 
 ## Change Log
+
+### New in 0.9
+
+* initial documentation
+* `accentuation.display_accent_type`
+* `accentuation.get_accent_type`
+* `accentuation.on_penult`
+* `syllabify.contonation`
+* `syllabify.add_necessary_breathing`
+* `characters.strip_breathing`
+* `characters.strip_accents`
+* `characters.remove_redundant_macron`
+* allow ~ to be used for unspecified vowel
+* allow | to be used as a wall the accent can't cross
+* allow treatment of final AI/OI length to be settable
+* added option to treat unmarked vowels as short by default
+
+### Previous Versions
 
 * 0.8 fixed bug in nucleus/coda calculation
 * 0.7 added make_proparoxytone function
