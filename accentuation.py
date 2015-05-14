@@ -76,9 +76,14 @@ def get_accent_type(w):
         return PROPAROXYTONE
 
 
-def possible_accentuations(s, treat_final_AI_OI_short=True):
+def possible_accentuations(s, treat_final_AI_OI_short=True, default_short=False):
     ultima_length = syllable_length(s[-1], treat_final_AI_OI_short)
     penult_length = syllable_length(s[-2], False) if len(s) >= 2 else None
+    if ultima_length == UNKNOWN and default_short:
+        ultima_length = SHORT
+    if penult_length == UNKNOWN and default_short:
+        penult_length = SHORT
+
     if ultima_length == SHORT:
         if len(s) >= 2:
             if len(s) >= 3:
@@ -118,14 +123,14 @@ def possible_accentuations(s, treat_final_AI_OI_short=True):
         yield OXYTONE
 
 
-def recessive(w, treat_final_AI_OI_short=True):
+def recessive(w, treat_final_AI_OI_short=True, default_short=False):
     s = syllabify(w)
-    return add_accent(s, sorted(possible_accentuations(s, treat_final_AI_OI_short), reverse=True)[0])
+    return add_accent(s, sorted(possible_accentuations(s, treat_final_AI_OI_short, default_short), reverse=True)[0])
 
 
-def on_penult(w):
+def on_penult(w, default_short=False):
     s = syllabify(w)
-    accentuations = list(possible_accentuations(s))
+    accentuations = list(possible_accentuations(s, default_short=default_short))
     if PROPERISPOMENON in accentuations:
         return add_accent(s, PROPERISPOMENON)
     elif PAROXYTONE in accentuations:
