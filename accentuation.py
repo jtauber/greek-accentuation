@@ -124,19 +124,29 @@ def possible_accentuations(s, treat_final_AI_OI_short=True, default_short=False)
 
 
 def recessive(w, treat_final_AI_OI_short=True, default_short=False):
+    if "|" in w:
+        pre, w = w.split("|")
+    else:
+        pre = ""
+
     s = syllabify(w)
-    return add_accent(s, sorted(possible_accentuations(s, treat_final_AI_OI_short, default_short), reverse=True)[0])
+    return pre + add_accent(s, sorted(possible_accentuations(s, treat_final_AI_OI_short, default_short), reverse=True)[0])
 
 
 def on_penult(w, default_short=False):
+    if "|" in w:
+        pre, w = w.split("|")
+    else:
+        pre = ""
+
     s = syllabify(w)
     accentuations = list(possible_accentuations(s, default_short=default_short))
     if PROPERISPOMENON in accentuations:
-        return add_accent(s, PROPERISPOMENON)
+        return pre + add_accent(s, PROPERISPOMENON)
     elif PAROXYTONE in accentuations:
-        return add_accent(s, PAROXYTONE)
+        return pre + add_accent(s, PAROXYTONE)
     else:
-        return add_accent(s, sorted(accentuations, reverse=True)[0])
+        return pre + add_accent(s, sorted(accentuations, reverse=True)[0])
 
 
 def persistent(
