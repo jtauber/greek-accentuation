@@ -175,5 +175,5 @@ def persistent(w, lemma):
         elif (place2 - 3, ACUTE) in possible:
             accent_type = (place2 - 3, ACUTE)
         else:
-            raise Exception(w, lemma)
+            accent_type = sorted(possible_accentuations(s), reverse=True)[0]
     return add_accent(s, accent_type)
