@@ -6,10 +6,14 @@ Greek words.
 
 ## Installation
 
-    pip install greek-accentuation==0.9
+    pip install greek-accentuation==0.9.1
 
 
 ## Change Log
+
+0.9.1 slightly improved persistent accent calculation by falling back to
+recessive if out of syllables (rather than raising an exception).
+
 
 ### New in 0.9
 
