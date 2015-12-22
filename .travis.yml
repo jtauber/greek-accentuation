@@ -1,0 +1,16 @@
+sudo: false
+language: python
+python: ## Keep in sync with `setup.py`
+  - 3.3
+  - 3.4
+install:
+  - pip install flake8
+script:
+  - case "$JOB" in doctest) python -m doctest -v docs.rst;; flake8) flake8 .;; esac
+env:
+  - JOB=doctest
+  - JOB=flake8
+matrix:
+  allow_failures:
+    - env: JOB=flake8
+  fast_finish: true

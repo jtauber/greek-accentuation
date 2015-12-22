@@ -1,5 +1,7 @@
 # greek-accentuation
 
+[![Build Status](https://travis-ci.org/jtauber/greek-accentuation.svg)](https://travis-ci.org/jtauber/greek-accentuation)
+
 Python 3 library for accenting (and analyzing the accentuation of) Ancient
 Greek words.
 
