@@ -166,18 +166,11 @@ def persistent(w, lemma):
     place2 = len(s) - len(syllabify(lemma)) + place
     accent_type = (place2, accent)
     if accent_type not in possible:
-        if accent == CIRCUMFLEX and (place2, ACUTE) in possible:
-            accent_type = (place2, ACUTE)
-        elif accent == ACUTE and (place2, CIRCUMFLEX) in possible:
+        if accent == ACUTE and (place2, CIRCUMFLEX) in possible:
             accent_type = (place2, CIRCUMFLEX)
         else:
             for i in range(1, 4):
-                if (place2 - i, CIRCUMFLEX) in possible:
-                    accent_type = (place2 - i, CIRCUMFLEX)
-                    break
                 if (place2 - i, ACUTE) in possible:
                     accent_type = (place2 - i, ACUTE)
                     break
-    if accent_type not in possible:
-        accent_type = sorted(possible_accentuations(s), reverse=True)[0]
     return add_accent(s, accent_type)

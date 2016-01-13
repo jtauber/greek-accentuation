@@ -547,3 +547,6 @@ The ``persistent`` function will try to persist the accent from the given form:
 
 >>> persistent('ἀνθρωπου', 'ἄνθρωπος')
 'ἀνθρώπου'
+
+>>> persistent('καταβαινον', 'καταβαίνων')
+'καταβαῖνον'
