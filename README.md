@@ -6,7 +6,7 @@
 Python 3 library for accenting (and analyzing the accentuation of) Ancient
 Greek words.
 
-For more of my work on Ancient Greek, see [http://jktauber.com/].
+For more of my work on Ancient Greek, see <http://jktauber.com/>.
 
 
 ## Installation
