@@ -1,6 +1,6 @@
 from characters import accent, base, diaeresis, iota_subscript, length
 from characters import breathing, add_diacritic, SMOOTH
-from characters import ACUTE, CIRCUMFLEX, GRAVE, SHORT, LONG
+from characters import ACUTE, CIRCUMFLEX, SHORT, LONG
 
 
 def is_vowel(ch):
@@ -221,14 +221,12 @@ def syllable_morae(s, number):
             return "mM"
         elif a == CIRCUMFLEX:
             return "Mm"
-        elif not a:
+        else:
             return "mm"
     elif l == SHORT:
         if a == ACUTE:
             return "M"
-        elif a == GRAVE:
-            return "m"
-        elif not a:
+        else:
             return "m"
     elif l == UNKNOWN:
         if a == CIRCUMFLEX:

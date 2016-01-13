@@ -277,6 +277,18 @@ Finally, there are two experimental functions ``morae`` and ``contonation``:
 >>> morae('δοῦλος')
 ['Mm', 'm']
 
+>>> morae('ἐλήλυθας')
+['mM', 'u', 'u']
+
+>>> morae('δὲ')
+['m']
+
+>>> morae('τὴν')
+['mm']
+
+>>> morae('ὑμᾶς')
+['u', 'Mm']
+
 
 >>> contonation('ἀγαθός')
 [3]
