@@ -200,6 +200,9 @@ True
 >>> syllable_length('σω') == LONG
 True
 
+>>> syllable_length('τοῦ') == LONG
+True
+
 >>> syllable_length('ᾳ') == LONG
 True
 
