@@ -1,6 +1,7 @@
 # greek-accentuation
 
 [![Build Status](https://travis-ci.org/jtauber/greek-accentuation.svg)](https://travis-ci.org/jtauber/greek-accentuation)
+[![Coverage Status](https://coveralls.io/repos/jtauber/greek-accentuation/badge.svg?branch=master&service=github)](https://coveralls.io/github/jtauber/greek-accentuation?branch=master)
 
 Python 3 library for accenting (and analyzing the accentuation of) Ancient
 Greek words.
