@@ -317,6 +317,9 @@ Finally, there are two experimental functions ``morae`` and ``contonation``:
 >>> contonation('ἄνθρωπε')
 [1, 2]
 
+>>> contonation('τὴν')
+[1]
+
 
 Accentuation
 ============
