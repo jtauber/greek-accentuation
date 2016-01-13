@@ -519,6 +519,15 @@ The ``recessive`` function will find the most recessive possible accent:
 'δείκνυς'
 
 
+You can place a "wall" ``|`` past which the accent will not recede:
+
+>>> recessive('εἰσηλθον')
+'εἴσηλθον'
+
+>>> recessive('εἰσ|ηλθον')
+'εἰσῆλθον'
+
+
 The ``persistent`` function will try to persist the accent from the given form:
 
 >>> persistent('ἀνθρωπος', 'ἄνθρωπος')
