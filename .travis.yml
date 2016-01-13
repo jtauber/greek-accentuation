@@ -1,19 +1,14 @@
-sudo: false
 language: python
-python: ## Keep in sync with `setup.py`
-  - 3.3
-  - 3.4
-  - 3.5
+sudo: false
+python:
+  - "3.3"
+  - "3.4"
+  - "3.5"
 install:
-  - pip install flake8 coveralls
+  - pip install flake8
+  - pip install coveralls
 script:
-  - case "$JOB" in doctest) python -m doctest -v docs.rst;; flake8) flake8 .;; esac
-env:
-  - JOB=doctest
-  - JOB=flake8
-matrix:
-  allow_failures:
-    - env: JOB=flake8
-  fast_finish: true
+  - flake8 .
+  - coverage run --branch -m doctest docs.rst
 after_success:
   - coveralls
