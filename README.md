@@ -6,10 +6,17 @@
 Python 3 library for accenting (and analyzing the accentuation of) Ancient
 Greek words.
 
+For more of my work on Ancient Greek, see [http://jktauber.com/].
+
 
 ## Installation
 
     pip install greek-accentuation==0.9.1
+
+
+## Documentation
+
+see [docs.rst](https://github.com/jtauber/greek-accentuation/blob/master/docs.rst)
 
 
 ## Change Log
