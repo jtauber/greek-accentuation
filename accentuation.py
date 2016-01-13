@@ -170,18 +170,14 @@ def persistent(w, lemma):
             accent_type = (place2, ACUTE)
         elif accent == ACUTE and (place2, CIRCUMFLEX) in possible:
             accent_type = (place2, CIRCUMFLEX)
-        elif (place2 - 1, CIRCUMFLEX) in possible:
-            accent_type = (place2 - 1, CIRCUMFLEX)
-        elif (place2 - 1, ACUTE) in possible:
-            accent_type = (place2 - 1, ACUTE)
-        elif (place2 - 2, CIRCUMFLEX) in possible:
-            accent_type = (place2 - 2, CIRCUMFLEX)
-        elif (place2 - 2, ACUTE) in possible:
-            accent_type = (place2 - 2, ACUTE)
-        elif (place2 - 3, CIRCUMFLEX) in possible:
-            accent_type = (place2 - 3, CIRCUMFLEX)
-        elif (place2 - 3, ACUTE) in possible:
-            accent_type = (place2 - 3, ACUTE)
         else:
-            accent_type = sorted(possible_accentuations(s), reverse=True)[0]
+            for i in range(1, 4):
+                if (place2 - i, CIRCUMFLEX) in possible:
+                    accent_type = (place2 - i, CIRCUMFLEX)
+                    break
+                if (place2 - i, ACUTE) in possible:
+                    accent_type = (place2 - i, ACUTE)
+                    break
+    if accent_type not in possible:
+        accent_type = sorted(possible_accentuations(s), reverse=True)[0]
     return add_accent(s, accent_type)
