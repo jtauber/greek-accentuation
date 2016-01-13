@@ -353,7 +353,45 @@ The ``accentuation`` module uses the two modules above to analyze and
 manipulate the accentuation of Greek words.
 
 
-Firstly, the ``syllable_add_accent`` adds the given accent to a syllable:
+``get_accent_type`` will return the type of accent on a word (as tuple of
+syllable number from end and accent, but you can compare this to constants
+provided):
+
+>>> get_accent_type('ψυχή') == OXYTONE
+True
+
+>>> get_accent_type('ἀγαθοῦ') == PERISPOMENON
+True
+
+>>> get_accent_type('νόμος') == PAROXYTONE
+True
+
+>>> get_accent_type('πεῖραι') == PROPERISPOMENON
+True
+
+>>> get_accent_type('ἄνθρωπε') == PROPAROXYTONE
+True
+
+
+If you want to display the type of accent you can use ``display_accent_type``:
+
+>>> display_accent_type(get_accent_type('ψυχή'))
+'oxytone'
+
+>>> display_accent_type(get_accent_type('ἀγαθοῦ'))
+'perispomenon'
+
+>>> display_accent_type(get_accent_type('νόμος'))
+'paroxytone'
+
+>>> display_accent_type(get_accent_type('πεῖραι'))
+'properispomenon'
+
+>>> display_accent_type(get_accent_type('ἄνθρωπε'))
+'proparoxytone'
+
+
+``syllable_add_accent`` adds the given accent to a syllable:
 
 >>> syllable_add_accent('κος', ACUTE)
 'κός'
