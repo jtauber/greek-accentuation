@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="greek-accentuation",
-    version="0.9.1",
+    version="0.9.2",
     description="""\
 Python 3 library for accenting (and analyzing the accentuation of) \
 Ancient Greek words""",
