@@ -162,6 +162,10 @@ Or combinations like rime or body:
 >>> body('κός')
 'κό'
 
+>>> body('ό')
+'ό'
+
+
 If you want to access the onset, nucleus AND coda, it's more efficient to just
 use:
 
