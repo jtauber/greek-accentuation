@@ -155,8 +155,6 @@ def on_penult(w, default_short=False):
         return pre + add_accent(s, PROPERISPOMENON)
     elif PAROXYTONE in accentuations:
         return pre + add_accent(s, PAROXYTONE)
-    else:
-        return pre + add_accent(s, sorted(accentuations, reverse=True)[0])
 
 
 def persistent(w, lemma):
