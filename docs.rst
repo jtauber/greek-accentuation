@@ -71,6 +71,12 @@ You can strip the length diacritic if one exists:
 >>> strip_length('ῡ')
 'υ'
 
+If you only want to strip the length diacritic when it's redundant with the
+circumflex:
+
+>>> remove_redundant_macron('ῡ͂')
+'ῦ'
+
 
 ``add_diacritic`` can be stacked:
 
