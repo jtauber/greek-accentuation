@@ -5,7 +5,7 @@ python: ## Keep in sync with `setup.py`
   - 3.4
   - 3.5
 install:
-  - pip install flake8
+  - pip install flake8 coveralls
 script:
   - case "$JOB" in doctest) python -m doctest -v docs.rst;; flake8) flake8 .;; esac
 env:
@@ -15,3 +15,5 @@ matrix:
   allow_failures:
     - env: JOB=flake8
   fast_finish: true
+after_success:
+  - coveralls
