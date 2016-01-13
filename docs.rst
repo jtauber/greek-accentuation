@@ -318,7 +318,7 @@ Finally, there are two experimental functions ``morae`` and ``contonation``:
 [1, 2]
 
 >>> contonation('τὴν')
-[1]
+[]
 
 
 Accentuation

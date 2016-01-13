@@ -255,7 +255,7 @@ def contonation(w):
                 return [i + 1, i + 2]
         elif a == CIRCUMFLEX:
             return [i + 1]
-    return [i + 1]
+    return []
 
 
 def add_necessary_breathing(w):
