@@ -430,6 +430,16 @@ The module also provides:
 'δοῦλος'
 
 
+If a perispomenon or properispomenon are not possible the respective functions
+will place an acute instead:
+
+>>> make_perispomenon('λογος')
+'λογός'
+
+>>> make_properispomenon('λογος')
+'λόγος'
+
+
 Given a syllabification, ``possible_accentuations`` will give the possible
 accentuations given the general rules of Greek accentuation:
 
@@ -439,6 +449,25 @@ accentuations given the general rules of Greek accentuation:
 εγινώσκου
 εγινωσκού
 εγινωσκοῦ
+
+
+If vowels of unmarked length are to be treated as short, set
+``default_short=True``:
+
+>>> s = syllabify('κυριος')
+>>> for accent_class in possible_accentuations(s):
+...     print(add_accent(s, accent_class))
+κύριος
+κυρίος
+κυρῖος
+κυριός
+
+>>> s = syllabify('κυριος')
+>>> for accent_class in possible_accentuations(s, default_short=True):
+...     print(add_accent(s, accent_class))
+κύριος
+κυρίος
+κυριός
 
 
 The ``recessive`` function will find the most recessive possible accent:
