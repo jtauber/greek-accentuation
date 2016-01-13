@@ -469,6 +469,37 @@ If vowels of unmarked length are to be treated as short, set
 κυρίος
 κυριός
 
+>>> s = syllabify('ὀνομα')
+>>> for accent_class in possible_accentuations(s):
+...     print(add_accent(s, accent_class))
+ὄνομα
+ὀνόμα
+ὀνομᾶ
+ὀνομά
+
+>>> s = syllabify('ὀνομα')
+>>> for accent_class in possible_accentuations(s, default_short=True):
+...     print(add_accent(s, accent_class))
+ὄνομα
+ὀνόμα
+ὀνομά
+
+>>> s = syllabify('ἐληλυθας')
+>>> for accent_class in possible_accentuations(s):
+...     print(add_accent(s, accent_class))
+ἐλήλυθας
+ἐληλύθας
+ἐληλῦθας
+ἐληλυθᾶς
+ἐληλυθάς
+
+>>> s = syllabify('ἐληλυθας')
+>>> for accent_class in possible_accentuations(s, default_short=True):
+...     print(add_accent(s, accent_class))
+ἐλήλυθας
+ἐληλύθας
+ἐληλυθάς
+
 
 The ``recessive`` function will find the most recessive possible accent:
 
