@@ -260,6 +260,29 @@ True
 True
 
 
+You can automatically add smooth breathing if necessary:
+
+>>> add_necessary_breathing('οι')
+'οἰ'
+
+>>> add_necessary_breathing('ελήλυθας')
+'ἐλήλυθας'
+
+>>> add_necessary_breathing('άνθρωπε')
+'ἄνθρωπε'
+
+>>> add_necessary_breathing('οίδαμεν')
+'οἴδαμεν'
+
+But it won't do it if not necessary:
+
+>>> add_necessary_breathing('οἰ')
+'οἰ'
+
+>>> add_necessary_breathing('θεός')
+'θεός'
+
+
 Finally, there are two experimental functions ``morae`` and ``contonation``:
 
 >>> morae('γυναικός')
