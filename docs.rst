@@ -528,6 +528,18 @@ You can place a "wall" ``|`` past which the accent will not recede:
 'εἰσῆλθον'
 
 
+The ``on_penult`` function will attempt to place the accent on the penult:
+
+>>> on_penult('φωνησαι')
+'φωνῆσαι'
+
+>>> on_penult('ἀπο|λυσαι')
+'ἀπολῦσαι'
+
+>>> on_penult('πιασαι', default_short=True)
+'πιάσαι'
+
+
 The ``persistent`` function will try to persist the accent from the given form:
 
 >>> persistent('ἀνθρωπος', 'ἄνθρωπος')
