@@ -77,6 +77,9 @@ circumflex:
 >>> remove_redundant_macron('ῡ͂')
 'ῦ'
 
+>>> remove_redundant_macron('ῡ')
+'ῡ'
+
 
 ``add_diacritic`` can be stacked:
 
