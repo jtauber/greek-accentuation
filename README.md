@@ -21,6 +21,8 @@ see [docs.rst](https://github.com/jtauber/greek-accentuation/blob/master/docs.rs
 
 ## Change Log
 
+0.9.2 fixed some edge-case bugs in syllable_morae and contonation
+
 0.9.1 slightly improved persistent accent calculation by falling back to
 recessive if out of syllables (rather than raising an exception).
 
