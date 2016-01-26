@@ -89,12 +89,15 @@ def onset(s):
     for i, ch in enumerate(s):
         if is_vowel(ch):
             return s[:i] if i > 0 else None
+    return s
 
 
 def nucleus(s):
     for i, ch in enumerate(s):
         if is_vowel(ch):
             break
+    else:
+        return None
     for j, ch in enumerate(s[i:]):
         if not is_vowel(ch):
             return s[i:i + j]
@@ -105,6 +108,8 @@ def coda(s):
     for i, ch in enumerate(s):
         if is_vowel(ch):
             break
+    else:
+        return None
     for j, ch in enumerate(s[i:]):
         if not is_vowel(ch):
             return s[i + j:]
@@ -115,12 +120,15 @@ def onset_nucleus_coda(s):
         if is_vowel(ch):
             onset = s[:i] if i > 0 else ""
             break
-    nucleus = ""
+    else:
+        return (s, "", "")
     for j, ch in enumerate(s[i:]):
         if not is_vowel(ch):
             nucleus = s[i:i + j]
             coda = s[i + j:]
             break
+    else:
+        nucleus = ""
     if not nucleus:
         nucleus = s[i:]
         coda = ""

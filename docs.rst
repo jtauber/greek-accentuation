@@ -192,6 +192,18 @@ nu when indicated with parentheses:
 ('', 'ἠ', '(ν)')
 
 
+A "word" without vowels is just treated as having an onset:
+
+>>> onset_nucleus_coda('βββ')
+('βββ', '', '')
+
+>>> onset('βββ')
+'βββ'
+
+>>> nucleus('βββ')
+
+>>> coda('βββ')
+
 You can find out the length of a syllable:
 
 >>> syllable_length('κός') == SHORT
