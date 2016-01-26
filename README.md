@@ -11,7 +11,7 @@ For more of my work on Ancient Greek, see <http://jktauber.com/>.
 
 ## Installation
 
-    pip install greek-accentuation==0.9.2
+    pip install greek-accentuation==0.9.3
 
 
 ## Documentation
@@ -20,6 +20,9 @@ see [docs.rst](https://github.com/jtauber/greek-accentuation/blob/master/docs.rs
 
 
 ## Change Log
+
+0.9.3 improved onset, nucleus, coda, and syllabify in cases where input has no
+vowels.
 
 0.9.2 fixed some edge-case bugs in syllable_morae and contonation and got
 doctest coverage to 100%.
