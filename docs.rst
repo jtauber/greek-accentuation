@@ -108,6 +108,12 @@ There is also a ``display_word`` function for displaying the syllabification:
 'κα.ταλ.λάσ.σω'
 
 
+Words without vowels will syllabify as a single component:
+
+>>> syllabify('γγγ')
+['γγγ']
+
+
 You can find out if a given character is a vowel or not:
 
 >>> is_vowel('ὅ')
@@ -203,6 +209,7 @@ A "word" without vowels is just treated as having an onset:
 >>> nucleus('βββ')
 
 >>> coda('βββ')
+
 
 You can find out the length of a syllable:
 

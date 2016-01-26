@@ -67,7 +67,6 @@ def syllabify(word):
                     current_syllable = [ch]
                     state = 0
     result.insert(0, current_syllable)
-    assert state != 0, word
     return ["".join(syllable) for syllable in result]
 
 
