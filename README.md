@@ -11,7 +11,7 @@ For more of my work on Ancient Greek, see <http://jktauber.com/>.
 
 ## Installation
 
-    pip install greek-accentuation==0.9.3
+    pip install greek-accentuation==0.9.4
 
 
 ## Documentation
@@ -20,6 +20,8 @@ see [docs.rst](https://github.com/jtauber/greek-accentuation/blob/master/docs.rs
 
 
 ## Change Log
+
+0.9.4 fixed syllabification of words containing macron and acute on same vowel
 
 0.9.3 improved onset, nucleus, coda, and syllabify in cases where input has no
 vowels.
