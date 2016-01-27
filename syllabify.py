@@ -4,7 +4,7 @@ from characters import ACUTE, CIRCUMFLEX, SHORT, LONG
 
 
 def is_vowel(ch):
-    return base(ch).lower() in "αεηιουω~"
+    return ch == ACUTE or base(ch).lower() in "αεηιουω~"
 
 
 def is_diphthong(chs):
@@ -46,7 +46,9 @@ def syllabify(word):
                 state = 1
         elif state == 1:
             if is_vowel(ch):
-                if is_diphthong(ch + current_syllable[0]):
+                if current_syllable[0] == ACUTE:
+                    current_syllable.insert(0, ch)
+                elif is_diphthong(ch + current_syllable[0]):
                     current_syllable.insert(0, ch)
                 else:
                     result.insert(0, current_syllable)

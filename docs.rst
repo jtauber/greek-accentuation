@@ -101,6 +101,9 @@ You can syllabify a word with ``syllabify``:
 >>> syllabify('γυναικός')
 ['γυ', 'ναι', 'κός']
 
+>>> syllabify('φῡ́ω')
+['φῡ́', 'ω']
+
 
 There is also a ``display_word`` function for displaying the syllabification:
 
