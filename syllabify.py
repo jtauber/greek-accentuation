@@ -124,7 +124,7 @@ def onset_nucleus_coda(s):
         coda = ""
     if onset == breathing(onset):
         nucleus = strip_breathing(nucleus)
-    if coda and coda[0] == ROUGH and onset == "":
+    if coda and coda[0] == ROUGH and onset in ["", ROUGH]:
         onset = ROUGH
         coda = coda[1:]
 

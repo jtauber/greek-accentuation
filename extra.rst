@@ -75,3 +75,20 @@ True
 
 >>> add_necessary_breathing('ῑ́̔στην')
 'ῑ́̔στην'
+
+>>> from accentuation import recessive, add_accent, syllable_add_accent, PAROXYTONE
+
+>>> syllabify('ῑ̔στην')
+['ῑ̔', 'στην']
+
+>>> onset_nucleus_coda(syllabify('ῑ̔στην')[0])
+('̔', 'ῑ', '')
+
+>>> syllable_add_accent(syllabify('ῑ̔στην')[0], ACUTE)
+'ῑ̔́'
+
+>>> add_accent(syllabify('ῑ̔στην'), PAROXYTONE)
+'ῑ̔́στην'
+
+>>> recessive('ῑ̔στην')
+'ῑ̔́στην'
