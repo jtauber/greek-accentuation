@@ -62,19 +62,19 @@ True
 >>> onset_nucleus_coda(syllabify('κἀγω')[0])
 ('κ', 'ἀ', '')
 
->>> onset(syllabify('ῑ́̔στην')[0])
+>>> onset(syllabify('ῑ̔́στην')[0])
 '̔'
 
->>> nucleus(syllabify('ῑ́̔στην')[0])
+>>> nucleus(syllabify('ῑ̔́στην')[0])
 'ῑ́'
 
->>> coda(syllabify('ῑ́̔στην')[0])
+>>> coda(syllabify('ῑ̔́στην')[0])
 
->>> onset_nucleus_coda(syllabify('ῑ́̔στην')[0])
+>>> onset_nucleus_coda(syllabify('ῑ̔́στην')[0])
 ('̔', 'ῑ́', '')
 
->>> add_necessary_breathing('ῑ́̔στην')
-'ῑ́̔στην'
+>>> add_necessary_breathing('ῑ̔́στην')
+'ῑ̔́στην'
 
 >>> from accentuation import recessive, add_accent, syllable_add_accent, PAROXYTONE
 
@@ -91,4 +91,10 @@ True
 'ῑ̔́στην'
 
 >>> recessive('ῑ̔στην')
+'ῑ̔́στην'
+
+>>> onset_nucleus_coda('ῑ̔́')
+('̔', 'ῑ́', '')
+
+>>> add_necessary_breathing('ῑ̔́στην')
 'ῑ̔́στην'

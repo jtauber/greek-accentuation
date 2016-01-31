@@ -45,8 +45,10 @@ def syllabify(word):
             if is_vowel(ch):
                 state = 1
         elif state == 1:
-            if is_vowel(ch):
+            if is_vowel(ch) or ch == ROUGH:
                 if current_syllable[0] == ACUTE:
+                    current_syllable.insert(0, ch)
+                elif current_syllable[0] == ROUGH:
                     current_syllable.insert(0, ch)
                 elif is_diphthong(ch + current_syllable[0]):
                     current_syllable.insert(0, ch)
@@ -57,7 +59,7 @@ def syllabify(word):
                 current_syllable.insert(0, ch)
                 state = 2
         elif state == 2:
-            if is_vowel(ch):
+            if is_vowel(ch) or ch == ACUTE:
                 result.insert(0, current_syllable)
                 current_syllable = [ch]
                 state = 1
@@ -113,7 +115,7 @@ def onset_nucleus_coda(s):
     else:
         return (s, "", "")
     for j, ch in enumerate(s[i:]):
-        if not is_vowel(ch):
+        if not is_vowel(ch) and ch not in [ROUGH]:
             nucleus = s[i:i + j]
             coda = s[i + j:]
             break
