@@ -10,5 +10,6 @@ install:
 script:
   - flake8 .
   - coverage run --branch -m doctest docs.rst
+  - coverage run --append --branch -m doctest extra.rst
 after_success:
   - coveralls

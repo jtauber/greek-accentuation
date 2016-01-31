@@ -1,12 +1,15 @@
 from characters import add_diacritic
-from characters import ACUTE, CIRCUMFLEX, SHORT, LONG
+from characters import ACUTE, CIRCUMFLEX, SHORT, LONG, SMOOTH, ROUGH
 from syllabify import onset_nucleus_coda, syllabify, UNKNOWN, syllable_length
 from syllabify import syllable_accent, ultima, penult, antepenult
 
 
 def syllable_add_accent(s, a):
     o, n, c = onset_nucleus_coda(s)
-    return o + add_diacritic(n, a) + c
+    if o in [SMOOTH, ROUGH]:
+        return add_diacritic(add_diacritic(n, o), a) + c
+    else:
+        return o + add_diacritic(n, a) + c
 
 
 def add_accent(s, accent_type):

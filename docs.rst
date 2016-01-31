@@ -185,20 +185,24 @@ use:
 
 >>> coda('ναι')
 
+
+Breathing is considered part of the onset:
+
 >>> onset('οἰ')
+'̓'
 
 >>> onset_nucleus_coda('ναι')
 ('ν', 'αι', '')
 
 >>> onset_nucleus_coda('οἰ')
-('', 'οἰ', '')
+('̓', 'οι', '')
 
 
 The ``coda`` and ``onset_nucleus_code`` functions know how to handle moveable
 nu when indicated with parentheses:
 
 >>> onset_nucleus_coda('ἠ(ν)')
-('', 'ἠ', '(ν)')
+('̓', 'η', '(ν)')
 
 
 A "word" without vowels is just treated as having an onset:

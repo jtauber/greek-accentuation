@@ -1,5 +1,5 @@
 from characters import accent, base, diaeresis, iota_subscript, length
-from characters import breathing, add_diacritic, SMOOTH
+from characters import breathing, strip_breathing, add_diacritic, SMOOTH, ROUGH
 from characters import ACUTE, CIRCUMFLEX, SHORT, LONG
 
 
@@ -87,40 +87,29 @@ def antepenult(w):
 
 
 def onset(s):
-    for i, ch in enumerate(s):
-        if is_vowel(ch):
-            return s[:i] if i > 0 else None
-    return s
+    return onset_nucleus_coda(s)[0] or None
 
 
 def nucleus(s):
-    for i, ch in enumerate(s):
-        if is_vowel(ch):
-            break
-    else:
-        return None
-    for j, ch in enumerate(s[i:]):
-        if not is_vowel(ch):
-            return s[i:i + j]
-    return s[i:]
+    return onset_nucleus_coda(s)[1] or None
 
 
 def coda(s):
-    for i, ch in enumerate(s):
-        if is_vowel(ch):
-            break
-    else:
-        return None
-    for j, ch in enumerate(s[i:]):
-        if not is_vowel(ch):
-            return s[i + j:]
+    return onset_nucleus_coda(s)[2] or None
 
 
 def onset_nucleus_coda(s):
     for i, ch in enumerate(s):
         if is_vowel(ch):
-            onset = s[:i] if i > 0 else ""
-            break
+            if i == 0 and breathing(ch):
+                onset = breathing(ch)
+                break
+            elif i == 0 and len(s) > 1 and breathing(s[1]):
+                onset = breathing(s[1])
+                break
+            else:
+                onset = s[:i] if i > 0 else ""
+                break
     else:
         return (s, "", "")
     for j, ch in enumerate(s[i:]):
@@ -133,23 +122,23 @@ def onset_nucleus_coda(s):
     if not nucleus:
         nucleus = s[i:]
         coda = ""
+    if onset == breathing(onset):
+        nucleus = strip_breathing(nucleus)
+    if coda and coda[0] == ROUGH and onset == "":
+        onset = ROUGH
+        coda = coda[1:]
+
     return onset, nucleus, coda
 
 
 def rime(s):
-    for i, ch in enumerate(s):
-        if is_vowel(ch):
-            return s[i:]
+    o, n, c = onset_nucleus_coda(s)
+    return n + c
 
 
 def body(s):
-    for i, ch in enumerate(s):
-        if is_vowel(ch):
-            break
-    for j, ch in enumerate(s[i:]):
-        if not is_vowel(ch):
-            return s[:i + j]
-    return s
+    o, n, c = onset_nucleus_coda(s)
+    return o + n
 
 
 UNKNOWN = None
@@ -270,7 +259,7 @@ def contonation(w):
 def add_necessary_breathing(w):
     s = syllabify(w)
     o, n, c = onset_nucleus_coda(s[0])
-    if o == "" and not breathing(n):
+    if o == "":
         a = accent(n)
         if a:
             if len(n) == 2:

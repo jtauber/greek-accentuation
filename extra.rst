@@ -1,0 +1,77 @@
+>>> from characters import add_diacritic, accent, breathing, length
+>>> from characters import LONG, ACUTE, ROUGH, SMOOTH
+
+>>> a = add_diacritic(add_diacritic(add_diacritic('ι', LONG), ACUTE), ROUGH)
+>>> a
+'ῑ́̔'
+
+>>> b = add_diacritic(add_diacritic(add_diacritic('ι', LONG), ROUGH), ACUTE)
+>>> b
+'ῑ̔́'
+
+>>> len(a)
+3
+
+>>> len(b)
+3
+
+>>> accent(a) == ACUTE, accent(b) == ACUTE
+(True, True)
+
+>>> breathing(a) == ROUGH, breathing(b) == ROUGH
+(True, True)
+
+>>> length(a) == LONG, length(b) == LONG
+(True, True)
+
+>>> from syllabify import syllabify, add_necessary_breathing
+>>> from syllabify import onset, nucleus, coda, onset_nucleus_coda
+
+>>> syllabify('ῑ́̔στην')
+['ῑ́̔', 'στην']
+
+>>> onset('ὅς') == ROUGH
+True
+
+>>> onset('οἱ') == ROUGH
+True
+
+>>> onset('ἀ') == SMOOTH
+True
+
+>>> onset('εἰ') == SMOOTH
+True
+
+>>> nucleus('ὅς')
+'ό'
+
+>>> coda('ὅς')
+'ς'
+
+>>> onset_nucleus_coda('ὅς')
+('̔', 'ό', 'ς')
+
+>>> onset(syllabify('κἀγω')[0])
+'κ'
+
+>>> nucleus(syllabify('κἀγω')[0])
+'ἀ'
+
+>>> coda(syllabify('κἀγω')[0])
+
+>>> onset_nucleus_coda(syllabify('κἀγω')[0])
+('κ', 'ἀ', '')
+
+>>> onset(syllabify('ῑ́̔στην')[0])
+'̔'
+
+>>> nucleus(syllabify('ῑ́̔στην')[0])
+'ῑ́'
+
+>>> coda(syllabify('ῑ́̔στην')[0])
+
+>>> onset_nucleus_coda(syllabify('ῑ́̔στην')[0])
+('̔', 'ῑ́', '')
+
+>>> add_necessary_breathing('ῑ́̔στην')
+'ῑ́̔στην'
