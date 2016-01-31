@@ -11,7 +11,7 @@ For more of my work on Ancient Greek, see <http://jktauber.com/>.
 
 ## Installation
 
-    pip install greek-accentuation==0.9.4
+    pip install greek-accentuation==0.9.5
 
 
 ## Documentation
@@ -20,6 +20,9 @@ see [docs.rst](https://github.com/jtauber/greek-accentuation/blob/master/docs.rs
 
 
 ## Change Log
+
+0.9.5 breathing is now considered part of the onset and syllabification now
+works on words containing macron + breathing + accent on the same vowel
 
 0.9.4 fixed syllabification of words containing macron and acute on same vowel
 
