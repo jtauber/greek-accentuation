@@ -1,5 +1,5 @@
 from characters import accent, base, diaeresis, iota_subscript, length
-from characters import breathing, strip_breathing, add_diacritic, SMOOTH, ROUGH
+from characters import breathing, strip_breathing, add_breathing, SMOOTH, ROUGH
 from characters import ACUTE, CIRCUMFLEX, SHORT, LONG
 
 
@@ -262,17 +262,10 @@ def add_necessary_breathing(w):
     s = syllabify(w)
     o, n, c = onset_nucleus_coda(s[0])
     if o == "":
-        a = accent(n)
-        if a:
-            if len(n) == 2:
-                n = n[0] + add_diacritic(add_diacritic(base(n[1]), SMOOTH), a)
-            else:
-                n = add_diacritic(add_diacritic(base(n), SMOOTH), a)
+        if len(n) == 2:
+            n = n[0] + add_breathing(n[1], SMOOTH)
         else:
-            if len(n) == 2:
-                n = n[0] + add_diacritic(base(n[1]), SMOOTH)
-            else:
-                n = add_diacritic(base(n), SMOOTH)
+            n = add_breathing(n, SMOOTH)
         return o + n + c + "".join(s[1:])
     else:
         return w

@@ -98,3 +98,9 @@ True
 
 >>> add_necessary_breathing('ῑ̔́στην')
 'ῑ̔́στην'
+
+>>> add_necessary_breathing('ῃδη')
+'ᾐδη'
+
+>>> add_necessary_breathing('ῄδη')
+'ᾔδη'
