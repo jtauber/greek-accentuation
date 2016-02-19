@@ -11,7 +11,7 @@ For more of my work on Ancient Greek, see <http://jktauber.com/>.
 
 ## Installation
 
-    pip install greek-accentuation==0.9.8
+    pip install greek-accentuation==0.9.9
 
 
 ## Documentation
@@ -20,6 +20,8 @@ see [docs.rst](https://github.com/jtauber/greek-accentuation/blob/master/docs.rs
 
 
 ## Change Log
+
+0.9.9 removed some unnecessary code
 
 0.9.8 add_necessary_breathing now properly handles initial vowels with iota
 subscripts
