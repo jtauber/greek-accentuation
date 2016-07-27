@@ -1,4 +1,5 @@
->>> from characters import add_diacritic, accent, breathing, length
+>>> from characters import add_diacritic, add_breathing
+>>> from characters import accent, breathing, length
 >>> from characters import LONG, ACUTE, ROUGH, SMOOTH
 
 >>> a = add_diacritic(add_diacritic(add_diacritic('ι', LONG), ACUTE), ROUGH)
@@ -24,7 +25,10 @@
 >>> length(a) == LONG, length(b) == LONG
 (True, True)
 
->>> from syllabify import syllabify, add_necessary_breathing
+>>> add_breathing("ῑ", ROUGH)
+'ῑ̔'
+
+>>> from syllabify import syllabify, add_necessary_breathing, rebreath
 >>> from syllabify import onset, nucleus, coda, onset_nucleus_coda
 
 >>> syllabify('ῑ́̔στην')
@@ -75,6 +79,13 @@ True
 
 >>> add_necessary_breathing('ῑ̔́στην')
 'ῑ̔́στην'
+
+>>> add_necessary_breathing('ῑ́')
+'ῑ̓́'
+
+>>> rebreath('')
+''
+
 
 >>> from accentuation import recessive, add_accent, syllable_add_accent, PAROXYTONE
 

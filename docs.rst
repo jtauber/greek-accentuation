@@ -218,6 +218,44 @@ A "word" without vowels is just treated as having an onset:
 >>> coda('βββ')
 
 
+You can split out the initial breathing:
+
+>>> split_initial_breathing('οἰκία') == (SMOOTH, 'οικία')
+True
+
+>>> split_initial_breathing('λόγος') == (None, 'λόγος')
+True
+
+>>> split_initial_breathing('ὅ') == (ROUGH, 'ό')
+True
+
+
+This is actually more commonly just used as the `debreath` function which
+drops smooth breathing and replaces rough breathing with an `h`:
+
+>>> debreath('οἰκία')
+'οικία'
+
+>>> debreath('ὅ')
+'hό'
+
+>>> debreath('λόγος')
+'λόγος'
+
+>>> debreath('κἀγω')
+'κἀγω'
+
+
+The `rebreath` function will convert `h` back to rough breathing and add
+smooth breathing if necessary, effectively reversing `debreath`.
+
+>>> rebreath('οικία')
+'οἰκία'
+
+>>> rebreath('hό')
+'ὅ'
+
+
 You can find out the length of a syllable:
 
 >>> syllable_length('κός') == SHORT
