@@ -31,8 +31,12 @@ def add_breathing(ch, breathing):
     Add the given breathing to the given (possibly accented) character.
     """
     decomposed = unicodedata.normalize("NFD", ch)
-    return unicodedata.normalize(
-        "NFC", decomposed[0] + breathing + decomposed[1:])
+    if len(decomposed) > 1 and decomposed[1] == LONG:
+        return unicodedata.normalize(
+            "NFC", decomposed[0:2] + breathing + decomposed[2:])
+    else:
+        return unicodedata.normalize(
+            "NFC", decomposed[0] + breathing + decomposed[1:])
 
 
 def remove_diacritic(*diacritics):
