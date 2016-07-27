@@ -230,6 +230,22 @@ True
 True
 
 
+This is actually more commonly just used as the `debreath` function which
+drops smooth breathing and replaces rough breathing with an `h`:
+
+>>> debreath('οἰκία')
+'οικία'
+
+>>> debreath('ὅ')
+'hό'
+
+>>> debreath('λόγος')
+'λόγος'
+
+>>> debreath('κἀγω')
+'κἀγω'
+
+
 You can find out the length of a syllable:
 
 >>> syllable_length('κός') == SHORT
