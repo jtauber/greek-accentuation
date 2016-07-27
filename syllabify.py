@@ -272,14 +272,22 @@ def debreath(word):
         return word
 
 
-def add_necessary_breathing(w):
+def add_necessary_breathing(w, breathing=SMOOTH):
     s = syllabify(w)
     o, n, c = onset_nucleus_coda(s[0])
     if o == "":
-        if len(n) == 2:
-            n = n[0] + add_breathing(n[1], SMOOTH)
+        for i, ch in enumerate(n):
+            if base(ch) in "αεηιουω":
+                last_vowel = i
+        if last_vowel > 0:
+            pre = n[:last_vowel]
         else:
-            n = add_breathing(n, SMOOTH)
+            pre = ""
+        if last_vowel + 1 < len(n):
+            post = n[last_vowel + 1:]
+        else:
+            post = ""
+        n = pre + add_breathing(n[last_vowel], breathing) + post
         return o + n + c + "".join(s[1:])
     else:
         return w
