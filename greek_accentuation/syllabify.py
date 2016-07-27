@@ -1,7 +1,7 @@
-from characters import accent, base, diaeresis, iota_subscript, length
-from characters import remove_redundant_macron
-from characters import breathing, strip_breathing, add_breathing, SMOOTH, ROUGH
-from characters import ACUTE, CIRCUMFLEX, SHORT, LONG
+from .characters import accent, base, diaeresis, iota_subscript, length
+from .characters import remove_redundant_macron
+from .characters import breathing, strip_breathing, add_breathing
+from .characters import SMOOTH, ROUGH, ACUTE, CIRCUMFLEX, SHORT, LONG
 
 
 def is_vowel(ch):

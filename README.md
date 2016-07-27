@@ -11,7 +11,7 @@ For more of my work on Ancient Greek, see <http://jktauber.com/>.
 
 ## Installation
 
-    pip install greek-accentuation==0.9.9
+    pip install greek-accentuation==1.0.0
 
 
 ## Documentation
@@ -20,6 +20,16 @@ see [docs.rst](https://github.com/jtauber/greek-accentuation/blob/master/docs.rs
 
 
 ## Change Log
+
+### New in 1.0.0
+
+* `syllabify.debreath`
+* `syllabify.rebreath`
+* `syllabify.add_necessary_breathing` can optionally add rough breathing
+* `characters.add_breathing` properly handles macrons
+* modules moved into `greek_accentuation` package
+* universal wheel build
+
 
 0.9.9 removed some unnecessary code
 

@@ -1,7 +1,7 @@
-from characters import add_diacritic
-from characters import ACUTE, CIRCUMFLEX, SHORT, LONG, SMOOTH, ROUGH
-from syllabify import onset_nucleus_coda, syllabify, UNKNOWN, syllable_length
-from syllabify import syllable_accent, ultima, penult, antepenult
+from .characters import add_diacritic
+from .characters import ACUTE, CIRCUMFLEX, SHORT, LONG, SMOOTH, ROUGH
+from .syllabify import onset_nucleus_coda, syllabify, UNKNOWN, syllable_length
+from .syllabify import syllable_accent, ultima, penult, antepenult
 
 
 def syllable_add_accent(s, a):

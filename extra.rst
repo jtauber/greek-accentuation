@@ -1,6 +1,4 @@
->>> from characters import add_diacritic, add_breathing
->>> from characters import accent, breathing, length
->>> from characters import LONG, ACUTE, ROUGH, SMOOTH
+>>> from greek_accentuation.characters import *
 
 >>> a = add_diacritic(add_diacritic(add_diacritic('ι', LONG), ACUTE), ROUGH)
 >>> a
@@ -28,8 +26,7 @@
 >>> add_breathing("ῑ", ROUGH)
 'ῑ̔'
 
->>> from syllabify import syllabify, add_necessary_breathing, rebreath
->>> from syllabify import onset, nucleus, coda, onset_nucleus_coda
+>>> from greek_accentuation.syllabify import *
 
 >>> syllabify('ῑ́̔στην')
 ['ῑ́̔', 'στην']
@@ -87,7 +84,7 @@ True
 ''
 
 
->>> from accentuation import recessive, add_accent, syllable_add_accent, PAROXYTONE
+>>> from greek_accentuation.accentuation import *
 
 >>> syllabify('ῑ̔στην')
 ['ῑ̔', 'στην']

@@ -6,10 +6,11 @@
 Characters
 ==========
 
->>> from characters import *
+>>> from greek_accentuation.characters import *
 
-The ``characters`` module provides basic analysis and manipulation of Greek
-characters in terms of their Unicode diacritics as if decomposed.
+The ``greek_accentuation.characters`` module provides basic analysis and
+manipulation of Greek characters in terms of their Unicode diacritics as if
+decomposed.
 
 For example:
 
@@ -90,10 +91,10 @@ circumflex:
 Syllabify
 =========
 
->>> from syllabify import *
+>>> from greek_accentuation.syllabify import *
 
-The ``syllabify`` module provides basic analysis and manipulation of Greek
-syllables.
+The ``greek_accentuation.syllabify`` module provides basic analysis and
+manipulation of Greek syllables.
 
 
 You can syllabify a word with ``syllabify``:
@@ -411,10 +412,10 @@ Finally, there are two experimental functions ``morae`` and ``contonation``:
 Accentuation
 ============
 
->>> from accentuation import *
+>>> from greek_accentuation.accentuation import *
 
-The ``accentuation`` module uses the two modules above to analyze and
-manipulate the accentuation of Greek words.
+The ``greek_accentuation.accentuation`` module uses the two modules above to
+analyze and manipulate the accentuation of Greek words.
 
 
 ``get_accent_type`` will return the type of accent on a word (as tuple of
