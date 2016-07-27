@@ -272,6 +272,18 @@ def debreath(word):
         return word
 
 
+def rebreath(word):
+    if word == "":
+        return word
+    if word.startswith("h"):
+        word = add_necessary_breathing(word[1:], ROUGH)
+    else:
+        word = add_necessary_breathing(word)
+    word = remove_redundant_macron(word)
+
+    return word
+
+
 def add_necessary_breathing(w, breathing=SMOOTH):
     s = syllabify(w)
     o, n, c = onset_nucleus_coda(s[0])
