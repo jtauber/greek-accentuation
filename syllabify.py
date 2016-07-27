@@ -255,6 +255,23 @@ def contonation(w):
     return []
 
 
+def split_initial_breathing(word):
+    s = syllabify(word)
+    o, n, c = onset_nucleus_coda(s[0])
+    if o in [SMOOTH, ROUGH]:
+        return o, n + c + "".join(s[1:])
+    else:
+        return None, word
+
+
+def debreath(word):
+    a, word = split_initial_breathing(word)
+    if a == ROUGH:
+        return "h" + word
+    else:
+        return word
+
+
 def add_necessary_breathing(w):
     s = syllabify(w)
     o, n, c = onset_nucleus_coda(s[0])
