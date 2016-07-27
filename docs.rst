@@ -218,6 +218,18 @@ A "word" without vowels is just treated as having an onset:
 >>> coda('βββ')
 
 
+You can split out the initial breathing:
+
+>>> split_initial_breathing('οἰκία') == (SMOOTH, 'οικία')
+True
+
+>>> split_initial_breathing('λόγος') == (None, 'λόγος')
+True
+
+>>> split_initial_breathing('ὅ') == (ROUGH, 'ό')
+True
+
+
 You can find out the length of a syllable:
 
 >>> syllable_length('κός') == SHORT
