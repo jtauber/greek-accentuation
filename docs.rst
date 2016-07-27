@@ -246,6 +246,16 @@ drops smooth breathing and replaces rough breathing with an `h`:
 'κἀγω'
 
 
+The `rebreath` function will convert `h` back to rough breathing and add
+smooth breathing if necessary, effectively reversing `debreath`.
+
+>>> rebreath('οικία')
+'οἰκία'
+
+>>> rebreath('hό')
+'ὅ'
+
+
 You can find out the length of a syllable:
 
 >>> syllable_length('κός') == SHORT
