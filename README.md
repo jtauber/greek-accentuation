@@ -11,7 +11,7 @@ For more of my work on Ancient Greek, see <http://jktauber.com/>.
 
 ## Installation
 
-    pip install greek-accentuation==1.0.0
+    pip install greek-accentuation==1.0.1
 
 
 ## Documentation
@@ -20,6 +20,10 @@ see [docs.rst](https://github.com/jtauber/greek-accentuation/blob/master/docs.rs
 
 
 ## Change Log
+
+### Fixed in 1.0.1
+
+* `syllabify.add_necessary_breathing` now works with uppercase initial vowels
 
 ### New in 1.0.0
 
