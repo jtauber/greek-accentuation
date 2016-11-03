@@ -80,6 +80,9 @@ True
 >>> add_necessary_breathing('ῑ́')
 'ῑ̓́'
 
+>>> add_necessary_breathing('Ιησους')
+'Ἰησους'
+
 >>> rebreath('')
 ''
 

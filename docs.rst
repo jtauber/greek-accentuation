@@ -17,6 +17,9 @@ For example:
 >>> base('ᾳ')
 'α'
 
+>>> base('Ι')
+'Ι'
+
 >>> iota_subscript('ᾳ')
 '\u0345'
 

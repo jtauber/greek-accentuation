@@ -290,7 +290,7 @@ def add_necessary_breathing(w, breathing=SMOOTH):
     o, n, c = onset_nucleus_coda(s[0])
     if o == "":
         for i, ch in enumerate(n):
-            if base(ch) in "αεηιουω":
+            if base(ch).lower() in "αεηιουω":
                 last_vowel = i
         if last_vowel > 0:
             pre = n[:last_vowel]
