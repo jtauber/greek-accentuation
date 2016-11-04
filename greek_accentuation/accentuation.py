@@ -171,6 +171,8 @@ def persistent(w, lemma):
     if accent_type not in possible:
         if accent == ACUTE and (place2, CIRCUMFLEX) in possible:
             accent_type = (place2, CIRCUMFLEX)
+        elif accent == CIRCUMFLEX and (place2, ACUTE) in possible:
+            accent_type = (place2, ACUTE)
         else:
             for i in range(1, 4):
                 if (place2 - i, ACUTE) in possible:

@@ -115,3 +115,6 @@ True
 
 >>> add_necessary_breathing('ῄδη')
 'ᾔδη'
+
+>>> persistent('Ἰουδαιων', 'Ἰουδαῖος')
+'Ἰουδαίων'
