@@ -89,43 +89,19 @@ def possible_accentuations(
     if penult_length == UNKNOWN and default_short:
         penult_length = SHORT
 
-    if ultima_length == SHORT:
-        if len(s) >= 2:
-            if len(s) >= 3:
-                yield PROPAROXYTONE
-            if penult_length == SHORT:
-                yield PAROXYTONE
-            elif penult_length == LONG:
-                yield PROPERISPOMENON
-            elif penult_length == UNKNOWN:
-                # conditional on short penult
-                yield PAROXYTONE
-                # conditional on long penult
-                yield PROPERISPOMENON
-        yield OXYTONE
-    elif ultima_length == LONG:
-        if len(s) >= 2:
-            yield PAROXYTONE
-        yield OXYTONE
+    yield OXYTONE
+
+    if not (ultima_length == SHORT):
         yield PERISPOMENON
-    elif ultima_length == UNKNOWN:
-        if len(s) >= 2:
-            if len(s) >= 3:
-                # conditional on short ultima
-                yield PROPAROXYTONE
-            if penult_length == SHORT:
-                yield PAROXYTONE
-            elif penult_length == LONG:
-                # conditional on short ultima
-                yield PROPERISPOMENON
-            elif penult_length == UNKNOWN:
-                # conditional on short penult
-                yield PAROXYTONE
-                # conditional on long penult
-                yield PROPERISPOMENON
-        # conditional on long ultima
-        yield PERISPOMENON
-        yield OXYTONE
+
+    if len(s) >= 2 and not (penult_length == LONG and ultima_length == SHORT):
+        yield PAROXYTONE
+
+    if len(s) >= 2 and not (penult_length == SHORT or ultima_length == LONG):
+        yield PROPERISPOMENON
+
+    if len(s) >= 3 and not (ultima_length == LONG):
+        yield PROPAROXYTONE
 
 
 def recessive(w, treat_final_AI_OI_short=True, default_short=False):
