@@ -11,7 +11,7 @@ For more of my work on Ancient Greek, see <http://jktauber.com/>.
 
 ## Installation
 
-    pip install greek-accentuation==1.0.2
+    pip install greek-accentuation==1.0.3
 
 
 ## Documentation
@@ -20,6 +20,10 @@ see [docs.rst](https://github.com/jtauber/greek-accentuation/blob/master/docs.rs
 
 
 ## Change Log
+
+### Fixed in 1.0.3
+
+* `possible_accentuations` now correctly gives paroxytone as a possible accentuation when penult is long and length of ultima is indeterminate
 
 ### Fixed in 1.0.2
 
