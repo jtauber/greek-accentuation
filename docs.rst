@@ -514,9 +514,9 @@ accentuations given the general rules of Greek accentuation:
 >>> s = syllabify('εγινωσκου')
 >>> for accent_class in possible_accentuations(s):
 ...     print(add_accent(s, accent_class))
-εγινώσκου
 εγινωσκού
 εγινωσκοῦ
+εγινώσκου
 
 
 If vowels of unmarked length are to be treated as short, set
@@ -525,48 +525,48 @@ If vowels of unmarked length are to be treated as short, set
 >>> s = syllabify('κυριος')
 >>> for accent_class in possible_accentuations(s):
 ...     print(add_accent(s, accent_class))
-κύριος
+κυριός
 κυρίος
 κυρῖος
-κυριός
+κύριος
 
 >>> s = syllabify('κυριος')
 >>> for accent_class in possible_accentuations(s, default_short=True):
 ...     print(add_accent(s, accent_class))
-κύριος
-κυρίος
 κυριός
+κυρίος
+κύριος
 
 >>> s = syllabify('ὀνομα')
 >>> for accent_class in possible_accentuations(s):
 ...     print(add_accent(s, accent_class))
-ὄνομα
-ὀνόμα
-ὀνομᾶ
 ὀνομά
+ὀνομᾶ
+ὀνόμα
+ὄνομα
 
 >>> s = syllabify('ὀνομα')
 >>> for accent_class in possible_accentuations(s, default_short=True):
 ...     print(add_accent(s, accent_class))
-ὄνομα
-ὀνόμα
 ὀνομά
+ὀνόμα
+ὄνομα
 
 >>> s = syllabify('ἐληλυθας')
 >>> for accent_class in possible_accentuations(s):
 ...     print(add_accent(s, accent_class))
-ἐλήλυθας
+ἐληλυθάς
+ἐληλυθᾶς
 ἐληλύθας
 ἐληλῦθας
-ἐληλυθᾶς
-ἐληλυθάς
+ἐλήλυθας
 
 >>> s = syllabify('ἐληλυθας')
 >>> for accent_class in possible_accentuations(s, default_short=True):
 ...     print(add_accent(s, accent_class))
-ἐλήλυθας
-ἐληλύθας
 ἐληλυθάς
+ἐληλύθας
+ἐλήλυθας
 
 
 The ``recessive`` function will find the most recessive possible accent:
