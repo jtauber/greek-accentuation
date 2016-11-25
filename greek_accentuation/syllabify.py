@@ -1,3 +1,5 @@
+import unicodedata
+
 from .characters import accent, base, diaeresis, iota_subscript, length
 from .characters import remove_redundant_macron
 from .characters import breathing, strip_breathing, add_breathing
@@ -301,6 +303,6 @@ def add_necessary_breathing(w, breathing=SMOOTH):
         else:
             post = ""
         n = pre + add_breathing(n[last_vowel], breathing) + post
-        return o + n + c + "".join(s[1:])
+        return unicodedata.normalize("NFKC", o + n + c + "".join(s[1:]))
     else:
         return w
