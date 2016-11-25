@@ -86,6 +86,9 @@ True
 >>> rebreath('')
 ''
 
+>>> syllabify('Οὐρίου')
+['Οὐ', 'ρί', 'ου']
+
 
 >>> from greek_accentuation.accentuation import *
 
