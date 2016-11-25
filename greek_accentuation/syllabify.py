@@ -9,7 +9,7 @@ def is_vowel(ch):
 
 
 def is_diphthong(chs):
-    return base(chs[0]) + base(chs[1]) in [
+    return base(chs[0]).lower() + base(chs[1]).lower() in [
         "αι", "ει", "οι", "υι",
         "αυ", "ευ", "ου", "ηυ",
     ] and not diaeresis(chs[1])
