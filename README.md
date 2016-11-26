@@ -21,6 +21,11 @@ see [docs.rst](https://github.com/jtauber/greek-accentuation/blob/master/docs.rs
 
 ## Change Log
 
+### Fixed in 1.0.4
+
+* `syllabify.is_diphthong` now works with uppercase letters (fixes a syllabification bug when capitalized word begins with diphthong)
+* `syllabify.add_necessary_breathing` now returns a NFKC normalized form (improving rebreath/debreath roundtripping)
+
 ### Fixed in 1.0.3
 
 * `possible_accentuations` now correctly gives paroxytone as a possible accentuation when penult is long and length of ultima is indeterminate
