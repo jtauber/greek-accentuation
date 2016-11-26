@@ -11,7 +11,7 @@ For more of my work on Ancient Greek, see <http://jktauber.com/>.
 
 ## Installation
 
-    pip install greek-accentuation==1.0.3
+    pip install greek-accentuation==1.0.4
 
 
 ## Documentation
