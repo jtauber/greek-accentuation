@@ -118,7 +118,7 @@ def onset_nucleus_coda(s):
     else:
         return (s, "", "")
     for j, ch in enumerate(s[i:]):
-        if not is_vowel(ch) and ch not in [ROUGH]:
+        if not is_vowel(ch) and ch not in [SMOOTH, ROUGH]:
             nucleus = s[i:i + j]
             coda = s[i + j:]
             break
