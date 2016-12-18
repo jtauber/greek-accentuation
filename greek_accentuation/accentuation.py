@@ -136,12 +136,12 @@ def on_penult(w, default_short=False):
         return pre + add_accent(s, PAROXYTONE)
 
 
-def persistent(w, lemma):
+def persistent(w, lemma, default_short=False):
     w = w.replace("|", "")
 
     place, accent = get_accent_type(lemma)
     s = syllabify(w)
-    possible = list(possible_accentuations(s))
+    possible = list(possible_accentuations(s, default_short=default_short))
     place2 = len(s) - len(syllabify(lemma)) + place
     accent_type = (place2, accent)
     if accent_type not in possible:
