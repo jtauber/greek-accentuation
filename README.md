@@ -11,7 +11,7 @@ For more of my work on Ancient Greek, see <http://jktauber.com/>.
 
 ## Installation
 
-    pip install greek-accentuation==1.0.5
+    pip install greek-accentuation==1.1.0
 
 
 ## Documentation
@@ -20,6 +20,10 @@ see [docs.rst](https://github.com/jtauber/greek-accentuation/blob/master/docs.rs
 
 
 ## Change Log
+
+### Added in 1.1.0
+
+* `accentuation.persistent` now supports `default_short` parameter
 
 ### Fixed in 1.0.5
 
