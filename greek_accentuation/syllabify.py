@@ -54,7 +54,11 @@ def syllabify(word):
                 elif current_syllable[0] == ROUGH:
                     current_syllable.insert(0, ch)
                 elif is_diphthong(ch + current_syllable[0]):
-                    current_syllable.insert(0, ch)
+                    if len(current_syllable) > 1 and current_syllable[1] == "ι":
+                        result.insert(0, current_syllable[1:])
+                        current_syllable = [ch, current_syllable[0]]
+                    else:
+                        current_syllable.insert(0, ch)
                 else:
                     result.insert(0, current_syllable)
                     current_syllable = [ch]
