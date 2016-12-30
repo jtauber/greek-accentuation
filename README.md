@@ -21,6 +21,10 @@ see [docs.rst](https://github.com/jtauber/greek-accentuation/blob/master/docs.rs
 
 ## Change Log
 
+### Fixed in 1.1.1
+
+* handle VVι cluster better
+
 ### Added in 1.1.0
 
 * `accentuation.persistent` now supports `default_short` parameter
