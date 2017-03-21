@@ -11,7 +11,7 @@ For more of my work on Ancient Greek, see <http://jktauber.com/>.
 
 ## Installation
 
-    pip install greek-accentuation==1.1.1
+    pip install greek-accentuation==1.2.0
 
 
 ## Documentation
@@ -20,6 +20,10 @@ see [docs.rst](https://github.com/jtauber/greek-accentuation/blob/master/docs.rs
 
 
 ## Change Log
+
+### Changed in 1.2.0
+
+* `on_penult` will now return an oxytone rather than None if input only has one syllable
 
 ### Fixed in 1.1.1
 
