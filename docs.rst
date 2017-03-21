@@ -607,6 +607,11 @@ The ``on_penult`` function will attempt to place the accent on the penult:
 >>> on_penult('πιασαι', default_short=True)
 'πιάσαι'
 
+If the word only has one syllable, it will fall back to an oxytone:
+
+>>> on_penult('δος')
+'δός'
+
 
 The ``persistent`` function will try to persist the accent from the given form:
 

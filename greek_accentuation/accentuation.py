@@ -134,6 +134,8 @@ def on_penult(w, default_short=False):
         return pre + add_accent(s, PROPERISPOMENON)
     elif PAROXYTONE in accentuations:
         return pre + add_accent(s, PAROXYTONE)
+    elif OXYTONE:  # fall back to an oxytone if necessary
+        return pre + add_accent(s, OXYTONE)
 
 
 def persistent(w, lemma, default_short=False):
