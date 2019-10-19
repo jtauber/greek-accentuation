@@ -53,6 +53,7 @@ def remove_diacritic(*diacritics):
     return _
 
 
+
 PSILI = SMOOTH = "\u0313"
 DASIA = ROUGH = "\u0314"
 

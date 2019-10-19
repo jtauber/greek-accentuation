@@ -21,6 +21,10 @@ see [docs.rst](https://github.com/jtauber/greek-accentuation/blob/master/docs.rs
 
 ## Change Log
 
+### Changed in 1.2.1
+
+* added `accentuation.make_varia`, that changes acute in oxytona to grave 
+
 ### Changed in 1.2.0
 
 * `on_penult` will now return an oxytone rather than None if input only has one syllable

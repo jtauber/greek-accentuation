@@ -1,5 +1,5 @@
-from .characters import add_diacritic
-from .characters import ACUTE, CIRCUMFLEX, SHORT, LONG, SMOOTH, ROUGH
+from .characters import add_diacritic, remove_diacritic
+from .characters import ACUTE, CIRCUMFLEX, SHORT, LONG, SMOOTH, ROUGH, GRAVE
 from .syllabify import onset_nucleus_coda, syllabify, UNKNOWN, syllable_length
 from .syllabify import syllable_accent, ultima, penult, antepenult
 
@@ -18,6 +18,7 @@ def add_accent(s, accent_type):
     return "".join(s[:-pos] + [syllable_add_accent(s[-pos], accent)] + final)
 
 
+VARIA = 1, GRAVE
 OXYTONE = 1, ACUTE
 PERISPOMENON = 1, CIRCUMFLEX
 PAROXYTONE = 2, ACUTE
@@ -27,6 +28,7 @@ PROPAROXYTONE = 3, ACUTE
 
 def display_accent_type(accent_type):
     return {
+        VARIA: "varia",
         OXYTONE: "oxytone",
         PERISPOMENON: "perispomenon",
         PAROXYTONE: "paroxytone",
@@ -62,21 +64,37 @@ def make_properispomenon(w):
     else:
         return add_accent(s, PAROXYTONE)
 
+def make_varia(w):
+    s = syllabify(w)
+    if get_accent_type(w) == OXYTONE:
+        s[-1] = remove_diacritic(ACUTE)(s[-1])
+        return add_accent(s, VARIA)
+    elif get_accent_type(w) in [PAROXYTONE, PROPAROXYTONE, PERISPOMENON, PROPERISPOMENON]:
+        return w
+    else:
+        return add_accent(s, VARIA)
 
 def get_accent_type(w):
     u = syllable_accent(ultima(w))
+    print(u)
     if u == ACUTE:
         return OXYTONE
     elif u == CIRCUMFLEX:
         return PERISPOMENON
-    p = syllable_accent(penult(w))
-    if p == ACUTE:
-        return PAROXYTONE
-    elif p == CIRCUMFLEX:
-        return PROPERISPOMENON
-    a = syllable_accent(antepenult(w))
-    if a == ACUTE:
-        return PROPAROXYTONE
+    elif u == GRAVE:
+        return VARIA
+    if len(syllabify(w)) > 1:
+        p = syllable_accent(penult(w))
+        if p == ACUTE:
+            return PAROXYTONE
+        elif p == CIRCUMFLEX:
+            return PROPERISPOMENON
+    elif len(syllabify(w)) > 2:
+        a = syllable_accent(antepenult(w))
+        if a == ACUTE:
+            return PROPAROXYTONE
+    else:
+        return None
 
 
 def possible_accentuations(

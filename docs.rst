@@ -428,6 +428,9 @@ provided):
 >>> get_accent_type('ψυχή') == OXYTONE
 True
 
+>>> get_accent_type('ψυχὴ') == VARIA
+True
+
 >>> get_accent_type('ἀγαθοῦ') == PERISPOMENON
 True
 
@@ -467,6 +470,9 @@ If you want to display the type of accent you can use ``display_accent_type``:
 >>> syllable_add_accent('ος', ACUTE)
 'ός'
 
+>>> syllable_add_accent('κος', GRAVE)
+'κὸς'
+
 >>> syllable_add_accent('ου', CIRCUMFLEX)
 'οῦ'
 
@@ -476,6 +482,15 @@ If you want to display the type of accent you can use ``display_accent_type``:
 
 >>> make_oxytone('θεος')
 'θεός'
+
+>>> make_varia('θεος')
+'θεὸς'
+
+>>> make_varia('θεός')
+'θεὸς'
+
+>>> make_varia('λόγος')
+'λόγος'
 
 This is the same as:
 

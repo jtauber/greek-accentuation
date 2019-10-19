@@ -3,3 +3,8 @@ __pycache__
 dist
 .coverage
 htmlcov
+.idea/
+venv/
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+*.ipynb
