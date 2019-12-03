@@ -1,10 +1,10 @@
 >>> from greek_accentuation.characters import *
 
->>> a = add_diacritic(add_diacritic(add_diacritic('ι', LONG), ACUTE), ROUGH)
+>>> a = add_diacritic(add_diacritic(add_diacritic('ι', Length.LONG), Accent.ACUTE), Breathing.ROUGH)
 >>> a
 'ῑ́̔'
 
->>> b = add_diacritic(add_diacritic(add_diacritic('ι', LONG), ROUGH), ACUTE)
+>>> b = add_diacritic(add_diacritic(add_diacritic('ι', Length.LONG), Breathing.ROUGH), Accent.ACUTE)
 >>> b
 'ῑ̔́'
 
@@ -14,16 +14,16 @@
 >>> len(b)
 3
 
->>> accent(a) == ACUTE, accent(b) == ACUTE
+>>> accent(a) == Accent.ACUTE, accent(b) == Accent.ACUTE
 (True, True)
 
->>> breathing(a) == ROUGH, breathing(b) == ROUGH
+>>> breathing(a) == Breathing.ROUGH, breathing(b) == Breathing.ROUGH
 (True, True)
 
->>> length(a) == LONG, length(b) == LONG
+>>> length(a) == Length.LONG, length(b) == Length.LONG
 (True, True)
 
->>> add_breathing("ῑ", ROUGH)
+>>> add_breathing("ῑ", Breathing.ROUGH)
 'ῑ̔'
 
 >>> from greek_accentuation.syllabify import *
@@ -31,16 +31,16 @@
 >>> syllabify('ῑ́̔στην')
 ['ῑ́̔', 'στην']
 
->>> onset('ὅς') == ROUGH
+>>> onset('ὅς') == Breathing.ROUGH
 True
 
->>> onset('οἱ') == ROUGH
+>>> onset('οἱ') == Breathing.ROUGH
 True
 
->>> onset('ἀ') == SMOOTH
+>>> onset('ἀ') == Breathing.SMOOTH
 True
 
->>> onset('εἰ') == SMOOTH
+>>> onset('εἰ') == Breathing.SMOOTH
 True
 
 >>> nucleus('ὅς')
@@ -50,7 +50,7 @@ True
 'ς'
 
 >>> onset_nucleus_coda('ὅς')
-('̔', 'ό', 'ς')
+(<Breathing.ROUGH: '̔'>, 'ό', 'ς')
 
 >>> onset(syllabify('κἀγω')[0])
 'κ'
@@ -64,7 +64,7 @@ True
 ('κ', 'ἀ', '')
 
 >>> onset(syllabify('ῑ̔́στην')[0])
-'̔'
+<Breathing.ROUGH: '̔'>
 
 >>> nucleus(syllabify('ῑ̔́στην')[0])
 'ῑ́'
@@ -72,7 +72,7 @@ True
 >>> coda(syllabify('ῑ̔́στην')[0])
 
 >>> onset_nucleus_coda(syllabify('ῑ̔́στην')[0])
-('̔', 'ῑ́', '')
+(<Breathing.ROUGH: '̔'>, 'ῑ́', '')
 
 >>> add_necessary_breathing('ῑ̔́στην')
 'ῑ̔́στην'
@@ -99,19 +99,19 @@ True
 ['ῑ̔', 'στην']
 
 >>> onset_nucleus_coda(syllabify('ῑ̔στην')[0])
-('̔', 'ῑ', '')
+(<Breathing.ROUGH: '̔'>, 'ῑ', '')
 
->>> syllable_add_accent(syllabify('ῑ̔στην')[0], ACUTE)
+>>> syllable_add_accent(syllabify('ῑ̔στην')[0], Accent.ACUTE)
 'ῑ̔́'
 
->>> add_accent(syllabify('ῑ̔στην'), PAROXYTONE)
+>>> add_accentuation(syllabify('ῑ̔στην'), Accentuation.PAROXYTONE)
 'ῑ̔́στην'
 
 >>> recessive('ῑ̔στην')
 'ῑ̔́στην'
 
 >>> onset_nucleus_coda('ῑ̔́')
-('̔', 'ῑ́', '')
+(<Breathing.ROUGH: '̔'>, 'ῑ́', '')
 
 >>> add_necessary_breathing('ῑ̔́στην')
 'ῑ̔́στην'
@@ -129,7 +129,7 @@ True
 'Γαλιλαίας'
 
 >>> onset_nucleus_coda('ᾱ̓')
-('̓', 'ᾱ', '')
+(<Breathing.SMOOTH: '̓'>, 'ᾱ', '')
 
 >>> recessive('ᾱ̓ρῃ')
 'ᾱ̓́ρῃ'
@@ -139,3 +139,57 @@ True
 
 >>> syllabify("ευιλατευσαι")
 ['ευ', 'ι', 'λα', 'τευ', 'σαι']
+
+>>> Accentuation.OXYTONE != Accentuation.PERISPOMENON
+True
+
+>>> Accentuation.OXYTONE < Accentuation.PERISPOMENON
+True
+
+>>> Accentuation.PERISPOMENON < Accentuation.PAROXYTONE
+True
+
+>>> Accentuation.PAROXYTONE < Accentuation.PROPERISPOMENON
+True
+
+>>> Accentuation.PROPERISPOMENON < Accentuation.PROPAROXYTONE
+True
+
+>>> Accentuation.OXYTONE <= Accentuation.PERISPOMENON
+True
+
+>>> Accentuation.PERISPOMENON <= Accentuation.PAROXYTONE
+True
+
+>>> Accentuation.PAROXYTONE <= Accentuation.PROPERISPOMENON
+True
+
+>>> Accentuation.PROPERISPOMENON <= Accentuation.PROPAROXYTONE
+True
+
+>>> Accentuation.PROPAROXYTONE > Accentuation.PROPERISPOMENON
+True
+
+>>> Accentuation.PROPERISPOMENON > Accentuation.PAROXYTONE
+True
+
+>>> Accentuation.PAROXYTONE > Accentuation.PERISPOMENON
+True
+
+>>> Accentuation.PERISPOMENON > Accentuation.OXYTONE
+True
+
+>>> Accentuation.PROPAROXYTONE >= Accentuation.PROPERISPOMENON
+True
+
+>>> Accentuation.PROPERISPOMENON >= Accentuation.PAROXYTONE
+True
+
+>>> Accentuation.PAROXYTONE >= Accentuation.PERISPOMENON
+True
+
+>>> Accentuation.PERISPOMENON >= Accentuation.OXYTONE
+True
+
+>>> str(Accent.ACUTE) == Accent.ACUTE.value
+True

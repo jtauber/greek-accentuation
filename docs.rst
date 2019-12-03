@@ -21,54 +21,54 @@ For example:
 'Ι'
 
 >>> iota_subscript('ᾳ')
-'\u0345'
+<Subscript.IOTA: 'ͅ'>
 
->>> IOTA_SUBSCRIPT
-'\u0345'
+>>> Subscript.IOTA
+<Subscript.IOTA: 'ͅ'>
 
->>> iota_subscript('ᾳ') == IOTA_SUBSCRIPT
+>>> iota_subscript('ᾳ') == Subscript.IOTA
 True
 
 >>> not iota_subscript('α')
 True
 
->>> add_diacritic('α', IOTA_SUBSCRIPT)
+>>> add_diacritic('α', Subscript.IOTA)
 'ᾳ'
 
 
 As well as ``iota_subscript``, this works for ``breathing``:
 
->>> breathing('ὅ') == ROUGH
+>>> breathing('ὅ') == Breathing.ROUGH
 True
 
 
 ``accent``:
 
->>> accent('ὅ') == ACUTE
+>>> accent('ὅ') == Accent.ACUTE
 True
 
 
 ``diaeresis``:
 
->>> diaeresis('ὅ') == DIAERESIS
+>>> diaeresis('ὅ') == Diacritic.DIAERESIS
 False
 
->>> diaeresis('ϋ') == DIAERESIS
+>>> diaeresis('ϋ') == Diacritic.DIAERESIS
 True
 
 
 and ``length``:
 
->>> length('ῠ') == SHORT
+>>> length('ῠ') == Length.SHORT
 True
 
->>> length('ῡ') == LONG
+>>> length('ῡ') == Length.LONG
 True
 
-If the length is not indicated, ``length`` will return None:
+If the length is not indicated, ``length`` will return ``Length.UNKNOWN``:
 
 >>> length('υ')
-
+<Length.UNKNOWN: -1>
 
 You can strip the length diacritic if one exists:
 
@@ -87,7 +87,7 @@ circumflex:
 
 ``add_diacritic`` can be stacked:
 
->>> add_diacritic(add_diacritic('ο', ROUGH), ACUTE)
+>>> add_diacritic(add_diacritic('ο', Breathing.ROUGH), Accent.ACUTE)
 'ὅ'
 
 
@@ -202,20 +202,20 @@ use:
 Breathing is considered part of the onset:
 
 >>> onset('οἰ')
-'̓'
+<Breathing.SMOOTH: '̓'>
 
 >>> onset_nucleus_coda('ναι')
 ('ν', 'αι', '')
 
 >>> onset_nucleus_coda('οἰ')
-('̓', 'οι', '')
+(<Breathing.SMOOTH: '̓'>, 'οι', '')
 
 
 The ``coda`` and ``onset_nucleus_code`` functions know how to handle moveable
 nu when indicated with parentheses:
 
 >>> onset_nucleus_coda('ἠ(ν)')
-('̓', 'η', '(ν)')
+(<Breathing.SMOOTH: '̓'>, 'η', '(ν)')
 
 
 A "word" without vowels is just treated as having an onset:
@@ -233,13 +233,13 @@ A "word" without vowels is just treated as having an onset:
 
 You can split out the initial breathing:
 
->>> split_initial_breathing('οἰκία') == (SMOOTH, 'οικία')
+>>> split_initial_breathing('οἰκία') == (Breathing.SMOOTH, 'οικία')
 True
 
 >>> split_initial_breathing('λόγος') == (None, 'λόγος')
 True
 
->>> split_initial_breathing('ὅ') == (ROUGH, 'ό')
+>>> split_initial_breathing('ὅ') == (Breathing.ROUGH, 'ό')
 True
 
 
@@ -271,22 +271,21 @@ smooth breathing if necessary, effectively reversing `debreath`.
 
 You can find out the length of a syllable:
 
->>> syllable_length('κός') == SHORT
+>>> syllable_length('κός') == Length.SHORT
 True
 
->>> syllable_length('σω') == LONG
+>>> syllable_length('σω') == Length.LONG
 True
 
->>> syllable_length('τοῦ') == LONG
+>>> syllable_length('τοῦ') == Length.LONG
 True
 
->>> syllable_length('ᾳ') == LONG
+>>> syllable_length('ᾳ') == Length.LONG
 True
 
-If the syllable length is unknown, ``syllable_length`` will return None which
-is aliased to ``UNKNOWN``:
+If the syllable length is unknown, ``syllable_length`` will return ``Length.UNKNOWN``:
 
->>> syllable_length('ναι') == UNKNOWN
+>>> syllable_length('ναι') == Length.UNKNOWN
 True
 
 
@@ -294,25 +293,25 @@ You can optionally pass ``syllable_length`` a boolean argument ``final`` to
 tell it whether it's the final syllable in a word, which will affect its
 handling of certain diphthongs:
 
->>> syllable_length('οἰ', final=False) == LONG
+>>> syllable_length('οἰ', final=False) == Length.LONG
 True
 
->>> syllable_length('ναι', final=True) == SHORT
+>>> syllable_length('ναι', final=True) == Length.SHORT
 True
 
->>> syllable_length('ναι', final=False) == LONG
+>>> syllable_length('ναι', final=False) == Length.LONG
 True
 
 
 You can extract the accent of a syllable with ``syllable_accent``:
 
->>> syllable_accent('κός') == ACUTE
+>>> syllable_accent('κός') == Accent.ACUTE
 True
 
 >>> syllable_accent('ναι') is None
 True
 
->>> syllable_accent('φῶς') == CIRCUMFLEX
+>>> syllable_accent('φῶς') == Accent.CIRCUMFLEX
 True
 
 
@@ -430,56 +429,54 @@ The ``greek_accentuation.accentuation`` module uses the two modules above to
 analyze and manipulate the accentuation of Greek words.
 
 
-``get_accent_type`` will return the type of accent on a word (as tuple of
-syllable number from end and accent, but you can compare this to constants
-provided):
+``get_accentuation`` will return the ``Accentuation`` enum:
 
->>> get_accent_type('ψυχή') == OXYTONE
+>>> get_accentuation('ψυχή') == Accentuation.OXYTONE
 True
 
->>> get_accent_type('ἀγαθοῦ') == PERISPOMENON
+>>> get_accentuation('ἀγαθοῦ') == Accentuation.PERISPOMENON
 True
 
->>> get_accent_type('νόμος') == PAROXYTONE
+>>> get_accentuation('νόμος') == Accentuation.PAROXYTONE
 True
 
->>> get_accent_type('πεῖραι') == PROPERISPOMENON
+>>> get_accentuation('πεῖραι') == Accentuation.PROPERISPOMENON
 True
 
->>> get_accent_type('ἄνθρωπε') == PROPAROXYTONE
+>>> get_accentuation('ἄνθρωπε') == Accentuation.PROPAROXYTONE
 True
 
 
-If you want to display the type of accent you can use ``display_accent_type``:
+If you want to display the type of accent you can use ``display_accentuation``:
 
->>> display_accent_type(get_accent_type('ψυχή'))
+>>> display_accentuation(get_accentuation('ψυχή'))
 'oxytone'
 
->>> display_accent_type(get_accent_type('ἀγαθοῦ'))
+>>> display_accentuation(get_accentuation('ἀγαθοῦ'))
 'perispomenon'
 
->>> display_accent_type(get_accent_type('νόμος'))
+>>> display_accentuation(get_accentuation('νόμος'))
 'paroxytone'
 
->>> display_accent_type(get_accent_type('πεῖραι'))
+>>> display_accentuation(get_accentuation('πεῖραι'))
 'properispomenon'
 
->>> display_accent_type(get_accent_type('ἄνθρωπε'))
+>>> display_accentuation(get_accentuation('ἄνθρωπε'))
 'proparoxytone'
 
 
 ``syllable_add_accent`` adds the given accent to a syllable:
 
->>> syllable_add_accent('κος', ACUTE)
+>>> syllable_add_accent('κος', Accent.ACUTE)
 'κός'
 
->>> syllable_add_accent('ος', ACUTE)
+>>> syllable_add_accent('ος', Accent.ACUTE)
 'ός'
 
->>> syllable_add_accent('ου', CIRCUMFLEX)
+>>> syllable_add_accent('ου', Accent.CIRCUMFLEX)
 'οῦ'
 
->>> syllable_add_accent('φως', CIRCUMFLEX)
+>>> syllable_add_accent('φως', Accent.CIRCUMFLEX)
 'φῶς'
 
 
@@ -488,7 +485,7 @@ If you want to display the type of accent you can use ``display_accent_type``:
 
 This is the same as:
 
->>> add_accent(syllabify('θεος'), OXYTONE)
+>>> add_accentuation(syllabify('θεος'), Accentuation.OXYTONE)
 'θεός'
 
 
@@ -521,8 +518,8 @@ Given a syllabification, ``possible_accentuations`` will give the possible
 accentuations given the general rules of Greek accentuation:
 
 >>> s = syllabify('εγινωσκου')
->>> for accent_class in possible_accentuations(s):
-...     print(add_accent(s, accent_class))
+>>> for accentuation in possible_accentuations(s):
+...     print(add_accentuation(s, accentuation))
 εγινωσκού
 εγινωσκοῦ
 εγινώσκου
@@ -532,38 +529,38 @@ If vowels of unmarked length are to be treated as short, set
 ``default_short=True``:
 
 >>> s = syllabify('κυριος')
->>> for accent_class in possible_accentuations(s):
-...     print(add_accent(s, accent_class))
+>>> for accentuation in possible_accentuations(s):
+...     print(add_accentuation(s, accentuation))
 κυριός
 κυρίος
 κυρῖος
 κύριος
 
 >>> s = syllabify('κυριος')
->>> for accent_class in possible_accentuations(s, default_short=True):
-...     print(add_accent(s, accent_class))
+>>> for accentuation in possible_accentuations(s, default_short=True):
+...     print(add_accentuation(s, accentuation))
 κυριός
 κυρίος
 κύριος
 
 >>> s = syllabify('ὀνομα')
->>> for accent_class in possible_accentuations(s):
-...     print(add_accent(s, accent_class))
+>>> for accentuation in possible_accentuations(s):
+...     print(add_accentuation(s, accentuation))
 ὀνομά
 ὀνομᾶ
 ὀνόμα
 ὄνομα
 
 >>> s = syllabify('ὀνομα')
->>> for accent_class in possible_accentuations(s, default_short=True):
-...     print(add_accent(s, accent_class))
+>>> for accentuation in possible_accentuations(s, default_short=True):
+...     print(add_accentuation(s, accentuation))
 ὀνομά
 ὀνόμα
 ὄνομα
 
 >>> s = syllabify('ἐληλυθας')
->>> for accent_class in possible_accentuations(s):
-...     print(add_accent(s, accent_class))
+>>> for accentuation in possible_accentuations(s):
+...     print(add_accentuation(s, accentuation))
 ἐληλυθάς
 ἐληλυθᾶς
 ἐληλύθας
@@ -571,8 +568,8 @@ If vowels of unmarked length are to be treated as short, set
 ἐλήλυθας
 
 >>> s = syllabify('ἐληλυθας')
->>> for accent_class in possible_accentuations(s, default_short=True):
-...     print(add_accent(s, accent_class))
+>>> for accentuation in possible_accentuations(s, default_short=True):
+...     print(add_accentuation(s, accentuation))
 ἐληλυθάς
 ἐληλύθας
 ἐλήλυθας
