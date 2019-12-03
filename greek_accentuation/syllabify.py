@@ -145,6 +145,8 @@ def rime(s):
 
 def body(s):
     o, n, c = onset_nucleus_coda(s)
+    if o in [SMOOTH, ROUGH]:
+        return add_necessary_breathing(n, o)
     return o + n
 
 
@@ -220,20 +222,20 @@ def barytone(w):
 
 def syllable_morae(s, number):
     a = syllable_accent(s)
-    l = syllable_length(s, number == 0)
-    if l == LONG:
+    sl = syllable_length(s, number == 0)
+    if sl == LONG:
         if a == ACUTE:
             return "mM"
         elif a == CIRCUMFLEX:
             return "Mm"
         else:
             return "mm"
-    elif l == SHORT:
+    elif sl == SHORT:
         if a == ACUTE:
             return "M"
         else:
             return "m"
-    elif l == UNKNOWN:
+    elif sl == UNKNOWN:
         if a == CIRCUMFLEX:
             return "Mm"
         elif a == ACUTE:
