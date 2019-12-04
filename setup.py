@@ -11,6 +11,7 @@ Ancient Greek words""",
     author="James Tauber",
     author_email="jtauber@jtauber.com",
     packages=["greek_accentuation"],
+    python_requires=">=3.4",
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "License :: OSI Approved :: MIT License",

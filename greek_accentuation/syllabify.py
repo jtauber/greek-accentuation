@@ -3,11 +3,11 @@ import unicodedata
 from .characters import accent, base, diaeresis, iota_subscript, length
 from .characters import remove_redundant_macron
 from .characters import breathing, strip_breathing, add_breathing
-from .characters import SMOOTH, ROUGH, ACUTE, CIRCUMFLEX, SHORT, LONG
+from .characters import Breathing, Accent, Length
 
 
 def is_vowel(ch):
-    return ch == ACUTE or base(ch).lower() in "αεηιουω~"
+    return ch == Accent.ACUTE.value or base(ch).lower() in "αεηιουω~"
 
 
 def is_diphthong(chs):
@@ -48,10 +48,10 @@ def syllabify(word):
             if is_vowel(ch):
                 state = 1
         elif state == 1:
-            if is_vowel(ch) or ch == ROUGH:
-                if current_syllable[0] == ACUTE:
+            if is_vowel(ch) or ch == Breathing.ROUGH.value:
+                if current_syllable[0] == Accent.ACUTE.value:
                     current_syllable.insert(0, ch)
-                elif current_syllable[0] == ROUGH:
+                elif current_syllable[0] == Breathing.ROUGH.value:
                     current_syllable.insert(0, ch)
                 elif is_diphthong(ch + current_syllable[0]):
                     if len(current_syllable) > 1 and \
@@ -67,7 +67,7 @@ def syllabify(word):
                 current_syllable.insert(0, ch)
                 state = 2
         elif state == 2:
-            if is_vowel(ch) or ch == ACUTE:
+            if is_vowel(ch) or ch == Accent.ACUTE.value:
                 result.insert(0, current_syllable)
                 current_syllable = [ch]
                 state = 1
@@ -123,7 +123,7 @@ def onset_nucleus_coda(s):
     else:
         return (s, "", "")
     for j, ch in enumerate(s[i:]):
-        if not is_vowel(ch) and ch not in [SMOOTH, ROUGH]:
+        if not is_vowel(ch) and ch not in Breathing.values():
             nucleus = s[i:i + j]
             coda = s[i + j:]
             break
@@ -132,7 +132,7 @@ def onset_nucleus_coda(s):
     if not nucleus:
         nucleus = s[i:]
         coda = ""
-    if onset == breathing(onset):
+    if isinstance(onset, Breathing):
         nucleus = strip_breathing(nucleus)
 
     return onset, nucleus, coda
@@ -145,12 +145,9 @@ def rime(s):
 
 def body(s):
     o, n, c = onset_nucleus_coda(s)
-    if o in [SMOOTH, ROUGH]:
+    if isinstance(o, Breathing):
         return add_necessary_breathing(n, o)
     return o + n
-
-
-UNKNOWN = None
 
 
 def syllable_length(s, final=None):
@@ -160,27 +157,27 @@ def syllable_length(s, final=None):
         b = "".join(base(ch) for ch in r)
         if final is True:
             if b in ["αι", "οι"]:
-                return SHORT
+                return Length.SHORT
             else:
-                return LONG
+                return Length.LONG
         elif final is False:
-            return LONG
+            return Length.LONG
         else:
             if b in ["αι", "οι"]:
-                return UNKNOWN
+                return Length.UNKNOWN
             else:
-                return LONG
+                return Length.LONG
     else:
         if iota_subscript(n):
-            return LONG
+            return Length.LONG
         else:
             b = base(n)
-            if b in "εο" or length(n) == SHORT:
-                return SHORT
-            elif b in "ηω" or length(n) == LONG:
-                return LONG
+            if b in "εο" or length(n) == Length.SHORT:
+                return Length.SHORT
+            elif b in "ηω" or length(n) == Length.LONG:
+                return Length.LONG
             else:  # αιυ
-                return UNKNOWN
+                return Length.UNKNOWN
 
 
 def syllable_accent(s):
@@ -192,27 +189,27 @@ def syllable_accent(s):
 
 def oxytone(w):
     # acute on ultima
-    return syllable_accent(ultima(w)) == ACUTE
+    return syllable_accent(ultima(w)) == Accent.ACUTE
 
 
 def paroxytone(w):
     # acute on penult
-    return syllable_accent(penult(w)) == ACUTE
+    return syllable_accent(penult(w)) == Accent.ACUTE
 
 
 def proparoxytone(w):
     # acute on antepenult
-    return syllable_accent(antepenult(w)) == ACUTE
+    return syllable_accent(antepenult(w)) == Accent.ACUTE
 
 
 def perispomenon(w):
     # circumflex on ultima
-    return syllable_accent(ultima(w)) == CIRCUMFLEX
+    return syllable_accent(ultima(w)) == Accent.CIRCUMFLEX
 
 
 def properispomenon(w):
     # circumflex on penult
-    return syllable_accent(penult(w)) == CIRCUMFLEX
+    return syllable_accent(penult(w)) == Accent.CIRCUMFLEX
 
 
 def barytone(w):
@@ -223,22 +220,22 @@ def barytone(w):
 def syllable_morae(s, number):
     a = syllable_accent(s)
     sl = syllable_length(s, number == 0)
-    if sl == LONG:
-        if a == ACUTE:
+    if sl == Length.LONG:
+        if a == Accent.ACUTE:
             return "mM"
-        elif a == CIRCUMFLEX:
+        elif a == Accent.CIRCUMFLEX:
             return "Mm"
         else:
             return "mm"
-    elif sl == SHORT:
-        if a == ACUTE:
+    elif sl == Length.SHORT:
+        if a == Accent.ACUTE:
             return "M"
         else:
             return "m"
-    elif sl == UNKNOWN:
-        if a == CIRCUMFLEX:
+    elif sl == Length.UNKNOWN:
+        if a == Accent.CIRCUMFLEX:
             return "Mm"
-        elif a == ACUTE:
+        elif a == Accent.ACUTE:
             return "U"
         else:
             return "u"
@@ -255,12 +252,12 @@ def contonation(w):
     s = syllabify(w)
     for i, syllable in enumerate(s):
         a = syllable_accent(syllable)
-        if a == ACUTE:
+        if a == Accent.ACUTE:
             if i + 1 == len(s):
                 return [i + 1]
             else:
                 return [i + 1, i + 2]
-        elif a == CIRCUMFLEX:
+        elif a == Accent.CIRCUMFLEX:
             return [i + 1]
     return []
 
@@ -268,7 +265,7 @@ def contonation(w):
 def split_initial_breathing(word):
     s = syllabify(word)
     o, n, c = onset_nucleus_coda(s[0])
-    if o in [SMOOTH, ROUGH]:
+    if isinstance(o, Breathing):
         return o, n + c + "".join(s[1:])
     else:
         return None, word
@@ -276,7 +273,7 @@ def split_initial_breathing(word):
 
 def debreath(word):
     a, word = split_initial_breathing(word)
-    if a == ROUGH:
+    if a == Breathing.ROUGH:
         return "h" + word
     else:
         return word
@@ -286,7 +283,7 @@ def rebreath(word):
     if word == "":
         return word
     if word.startswith("h"):
-        word = add_necessary_breathing(word[1:], ROUGH)
+        word = add_necessary_breathing(word[1:], Breathing.ROUGH)
     else:
         word = add_necessary_breathing(word)
     word = remove_redundant_macron(word)
@@ -294,7 +291,7 @@ def rebreath(word):
     return word
 
 
-def add_necessary_breathing(w, breathing=SMOOTH):
+def add_necessary_breathing(w, breathing=Breathing.SMOOTH):
     s = syllabify(w)
     o, n, c = onset_nucleus_coda(s[0])
     if o == "":
