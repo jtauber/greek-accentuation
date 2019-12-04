@@ -193,3 +193,39 @@ True
 
 >>> str(Accent.ACUTE) == Accent.ACUTE.value
 True
+
+>>> oxytone('βββ')
+False
+
+>>> paroxytone('ὅς')
+False
+
+>>> proparoxytone('λόγος')
+False
+
+>>> perispomenon('βββ')
+False
+
+>>> properispomenon('ὅς')
+False
+
+>>> syllable_length('βββ')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ValueError: 'βββ' does not contain a nucleus
+
+>>> syllable_accent('βββ')
+
+
+>>> get_accentuation('βββ')
+
+
+>>> get_accentuation('βββ')
+
+
+>>> get_accentuation('ανθρωπε')
+
+
+>>> persistent('βββ', 'βββ')
+
+
