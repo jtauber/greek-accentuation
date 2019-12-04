@@ -172,11 +172,20 @@ Or combinations like rime or body:
 >>> rime('κός')
 'ός'
 
+>>> rime('οἴδ')
+'οίδ'
+
 >>> body('κός')
 'κό'
 
 >>> body('ό')
 'ό'
+
+>>> body('ὅ')
+'ὅ'
+
+>>> body('οἴδ')
+'οἴ'
 
 
 If you want to access the onset, nucleus AND coda, it's more efficient to just
