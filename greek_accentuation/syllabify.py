@@ -152,6 +152,10 @@ def body(s):
 
 def syllable_length(s, final=None):
     n = nucleus(s)
+
+    if n is None:
+        raise ValueError("'{}' does not contain a nucleus".format(s))
+
     r = rime(s)
     if len(n) > 1:
         b = "".join(base(ch) for ch in r)
@@ -181,10 +185,12 @@ def syllable_length(s, final=None):
 
 
 def syllable_accent(s):
-    for ch in nucleus(s):
-        a = accent(ch)
-        if a:
-            return a
+    n = nucleus(s)
+    if n is not None:
+        for ch in nucleus(s):
+            a = accent(ch)
+            if a:
+                return a
 
 
 def oxytone(w):
@@ -194,12 +200,14 @@ def oxytone(w):
 
 def paroxytone(w):
     # acute on penult
-    return syllable_accent(penult(w)) == Accent.ACUTE
+    p = penult(w)
+    return p is not None and syllable_accent(p) == Accent.ACUTE
 
 
 def proparoxytone(w):
     # acute on antepenult
-    return syllable_accent(antepenult(w)) == Accent.ACUTE
+    a = antepenult(w)
+    return a is not None and syllable_accent(a) == Accent.ACUTE
 
 
 def perispomenon(w):
@@ -209,7 +217,8 @@ def perispomenon(w):
 
 def properispomenon(w):
     # circumflex on penult
-    return syllable_accent(penult(w)) == Accent.CIRCUMFLEX
+    p = penult(w)
+    return p is not None and syllable_accent(p) == Accent.CIRCUMFLEX
 
 
 def barytone(w):

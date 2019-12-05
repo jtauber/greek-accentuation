@@ -102,14 +102,18 @@ def get_accentuation(w):
         return Accentuation.OXYTONE
     elif u == Accent.CIRCUMFLEX:
         return Accentuation.PERISPOMENON
-    p = syllable_accent(penult(w))
-    if p == Accent.ACUTE:
-        return Accentuation.PAROXYTONE
-    elif p == Accent.CIRCUMFLEX:
-        return Accentuation.PROPERISPOMENON
-    a = syllable_accent(antepenult(w))
-    if a == Accent.ACUTE:
-        return Accentuation.PROPAROXYTONE
+    p = penult(w)
+    if p is not None:
+        pa = syllable_accent(p)
+        if pa == Accent.ACUTE:
+            return Accentuation.PAROXYTONE
+        elif pa == Accent.CIRCUMFLEX:
+            return Accentuation.PROPERISPOMENON
+    a = antepenult(w)
+    if a is not None:
+        aa = syllable_accent(a)
+        if aa == Accent.ACUTE:
+            return Accentuation.PROPAROXYTONE
 
 
 def possible_accentuations(
@@ -177,7 +181,11 @@ def on_penult(w, default_short=False):
 def persistent(w, lemma, default_short=False):
     w = w.replace("|", "")
 
-    place, accent = get_accentuation(lemma).value
+    accentuation = get_accentuation(lemma)
+    if accentuation is None:
+        return None
+
+    place, accent = accentuation.value
     s = syllabify(w)
     possible = [
         p.value for p in possible_accentuations(s, default_short=default_short)
