@@ -1,9 +1,10 @@
 import enum
 
-from .characters import add_diacritic, base, debreath, rebreath
+from .characters import add_diacritic, base
 from .characters import Accent, Length, Breathing
 from .syllabify import onset_nucleus_coda, syllabify, syllable_length
 from .syllabify import syllable_accent, ultima, penult, antepenult
+from .syllabify import debreath, rebreath
 
 
 class Accentuation(enum.Enum):
@@ -59,11 +60,13 @@ def add_accentuation(s, accentuation):
     final = s[1 - pos :] if pos > 1 else [""]
     return "".join(s[:-pos] + [syllable_add_accent(s[-pos], accent)] + final)
 
+
 def strip_accentuation(word):
     "strip accentuation of a given word conserving breathing"
     deword = debreath(word)
     no_accent_word = "".join([base(a) for a in word])
     return rebreath(no_accent_word)
+
 
 def strip_word(word):
     "strip both accentuation and breathing"
