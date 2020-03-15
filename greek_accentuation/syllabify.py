@@ -187,7 +187,7 @@ def syllable_length(s, final=None):
 def syllable_accent(s):
     n = nucleus(s)
     if n is not None:
-        for ch in nucleus(s):
+        for ch in n:
             a = accent(ch)
             if a:
                 return a
