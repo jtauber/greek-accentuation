@@ -76,7 +76,6 @@ def make_varia(w):
 
 def get_accent_type(w):
     u = syllable_accent(ultima(w))
-    print(u)
     if u == ACUTE:
         return OXYTONE
     elif u == CIRCUMFLEX:
@@ -89,7 +88,7 @@ def get_accent_type(w):
             return PAROXYTONE
         elif p == CIRCUMFLEX:
             return PROPERISPOMENON
-    elif len(syllabify(w)) > 2:
+    if len(syllabify(w)) > 2:
         a = syllable_accent(antepenult(w))
         if a == ACUTE:
             return PROPAROXYTONE
@@ -157,8 +156,9 @@ def on_penult(w, default_short=False):
 
 
 def persistent(w, lemma, default_short=False):
-    w = w.replace("|", "")
 
+    w = w.replace("|", "")
+    get_accent_type(lemma)
     place, accent = get_accent_type(lemma)
     s = syllabify(w)
     possible = list(possible_accentuations(s, default_short=default_short))
@@ -175,3 +175,6 @@ def persistent(w, lemma, default_short=False):
                     accent_type = (place2 - i, ACUTE)
                     break
     return add_accent(s, accent_type)
+
+
+

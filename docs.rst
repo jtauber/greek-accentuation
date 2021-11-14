@@ -628,7 +628,7 @@ If the word only has one syllable, it will fall back to an oxytone:
 'δός'
 
 
-The ``persistent`` function will try to persist the accent from the given form:
+The ``persistent`` function will try to keep an accent from a given form:
 
 >>> persistent('ἀνθρωπος', 'ἄνθρωπος')
 'ἄνθρωπος'
